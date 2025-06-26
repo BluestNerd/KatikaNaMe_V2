@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free dance contract templates and legal guidance for African creatives. Protect your rights and build your career safely with professional contracts.">
+    <meta name="keywords" content="dance contracts Kenya, creative contracts Africa, performance agreements, dance legal protection, artist rights">
+    <meta name="author" content="KatikaNaMe">
+    
+    <title>Dance Contracts Helper | KatikaNaMe - Protect Your Rights</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>Katika</span><span class="highlight">NaMe</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="new_version.html">Portfolio Generator</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contracts.html" class="active">Contracts</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle between dark and light themes">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <a href="portfolio_gen.html" class="btn primary">Get Started</a>
+                <button class="hamburger" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Dance Contracts Helper</h1>
+            <p class="subtitle">Get informed, stay protected, and build your dance brand with confidence. Free legal guidance for African creatives.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Contracts Downloaded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Template Types</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free to Use</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contract Generator -->
+        <section class="contract-section">
+            <h2 class="section-title">
+                <i class="fas fa-magic" aria-hidden="true"></i>
+                Smart Contract Advisor
+            </h2>
+            <div class="tool-card">
+                <div class="form-group">
+                    <label for="engagementType">Select Your Engagement Type</label>
+                    <select id="engagementType" class="styled-select">
+                        <option value="">Choose your situation...</option>
+                        <option value="performance">Live Performance</option>
+                        <option value="teaching">Teaching/Workshops</option>
+                        <option value="promotion">Influencer/Promotion</option>
+                        <option value="brand">Brand Representation</option>
+                        <option value="event">Event Hosting/Participation</option>
+                        <option value="choreo">Choreography/Creative Collaboration</option>
+                    </select>
+                </div>
+                <button onclick="getSuggestion()" class="btn primary" id="getAdviceBtn">
+                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                    Get Expert Advice
+                </button>
+                <div id="contractSuggestions" class="suggestions-container"></div>
+            </div>
+        </section>
+
+        <!-- Understanding Contracts -->
+        <section class="contract-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                Understanding Contracts 101
+            </h2>
+            <div class="education-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-clipboard-list" aria-hidden="true"></i> Contract Essentials</h3>
+                    <p>Every dance contract should clearly outline:</p>
+                    <ul class="styled-list">
+                        <li>Parties involved and their roles</li>
+                        <li>Scope of work and deliverables</li>
+                        <li>Compensation details and payment schedule</li>
+                        <li>Intellectual property rights</li>
+                        <li>Cancellation and termination clauses</li>
+                        <li>Liability and insurance provisions</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card warning-card">
+                    <h3><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Red Flags to Avoid</h3>
+                    <ul class="warning-list">
+                        <li>Vague payment terms or "exposure-only" deals</li>
+                        <li>Contracts without cancellation clauses</li>
+                        <li>Broad image rights that limit future work</li>
+                        <li>No liability protection for the performer</li>
+                        <li>Unclear ownership of creative work</li>
+                        <li>Last-minute contract changes</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card success-card">
+                    <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Your Rights as a Dancer</h3>
+                    <ul class="rights-list">
+                        <li>Right to fair compensation for your work</li>
+                        <li>Right to safe working conditions</li>
+                        <li>Right to retain copyright of your choreography</li>
+                        <li>Right to negotiate contract terms</li>
+                        <li>Right to legal representation</li>
+                        <li>Right to terminate unsafe agreements</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+       
+<i class="fas fa-download" aria-hidden="true"></i>
+                Download Contract Templates
+            </h2>
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-music" aria-hidden="true"></i>
+                    </div>
+                    <h3>Live Performance Contract</h3>
+                    <p>For gigs, concerts, festivals, and live shows. Includes rider clauses and technical requirements.</p>
+                    <div class="template-features">
+                        <span class="feature">Payment terms</span>
+                        <span class="feature">Cancellation policy</span>
+                        <span class="feature">Technical rider</span>
+                    </div>
+                    <button onclick="generateContractPDF('performance')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                    </div>
+                    <h3>Teaching & Workshop Agreement</h3>
+                    <p>For dance classes, workshops, and educational programs. Covers liability and curriculum ownership.</p>
+                    <div class="template-features">
+                        <span class="feature">Class structure</span>
+                        <span class="feature">Material ownership</span>
+                        <span class="feature">Student safety</span>
+                    </div>
+                    <button onclick="generateContractPDF('teaching')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-video" aria-hidden="true"></i>
+                    </div>
+                    <h3>Influencer & Promotion Contract</h3>
+                    <p>For brand partnerships, social media campaigns, and promotional content creation.</p>
+                    <div class="template-features">
+                        <span class="feature">Content deliverables</span>
+                        <span class="feature">Usage rights</span>
+                        <span class="feature">Performance metrics</span>
+                    </div>
+                    <button onclick="generateContractPDF('promotion')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-palette" aria-hidden="true"></i>
+                    </div>
+                    <h3>Choreography Collaboration</h3>
+                    <p>For creative partnerships, co-choreography projects, and artistic collaborations.</p>
+                    <div class="template-features">
+                        <span class="feature">Creative ownership</span>
+                        <span class="feature">Revenue sharing</span>
+                        <span class="feature">Credit attribution</span>
+                    </div>
+                    <button onclick="generateContractPDF('choreo')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-handshake" aria-hidden="true"></i>
+                    </div>
+                    <h3>Brand Ambassador Agreement</h3>
+                    <p>For long-term brand partnerships and representation deals with exclusivity clauses.</p>
+                    <div class="template-features">
+                        <span class="feature">Exclusivity terms</span>
+                        <span class="feature">Duration & renewal</span>
+                        <span class="feature">Compensation structure</span>
+                    </div>
+                    <button onclick="generateContractPDF('brand')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    </div>
+                    <h3>Event Hosting Agreement</h3>
+                    <p>For hosting gigs, MC work, and event facilitation with crowd management considerations.</p>
+                    <div class="template-features">
+                        <span class="feature">Event responsibilities</span>
+                        <span class="feature">Equipment provision</span>
+                        <span class="feature">Crowd safety</span>
+                    </div>
+                    <button onclick="generateContractPDF('event')" class="btn primary">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Negotiation Tips -->
+        <section class="contract-section">
+            <h2 class="section-title">
+                <i class="fas fa-comments" aria-hidden="true"></i>
+                Negotiation Tips & Strategies
+            </h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-number">1</div>
+                    <h3>Know Your Worth</h3>
+                    <p>Research industry rates for your experience level and location. Don't undervalue your skills and time.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">2</div>
+                    <h3>Read Everything</h3>
+                    <p>Never sign without reading the entire contract. Ask questions about unclear terms before agreeing.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">3</div>
+                    <h3>Document Changes</h3>
+                    <p>All contract modifications should be in writing. Verbal agreements are hard to enforce legally.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">4</div>
+                    <h3>Set Boundaries</h3>
+                    <p>Clearly define what's included and excluded in your services. Scope creep can hurt your business.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">5</div>
+                    <h3>Payment Terms</h3>
+                    <p>Always request deposits for larger gigs and set clear payment deadlines with late fee clauses.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">6</div>
+                    <h3>Exit Strategy</h3>
+                    <p>Include fair cancellation terms for both parties. Life happens, and contracts should account for this.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="contract-section">
+            <h2 class="section-title">
+                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                Additional Resources
+            </h2>
+            <div class="resources-grid">
+                <a href="https://www.hevafund.com/" target="_blank" rel="noopener" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-piggy-bank" aria-hidden="true"></i>
+                    </div>
+                    <h3>HEVA Fund</h3>
+                    <p>Creative economy financial services and funding opportunities for African artists and creatives.</p>
+                    <span class="resource-tag">Funding</span>
+                </a>
+
+                <a href="https://kenyalaw.org/" target="_blank" rel="noopener" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i>
+                    </div>
+                    <h3>Kenya Law</h3>
+                    <p>Official legal resources and information portal for understanding Kenyan employment and contract law.</p>
+                    <span class="resource-tag">Legal</span>
+                </a>
+
+                <a href="https://www.kenyacopyright.go.ke/" target="_blank" rel="noopener" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-copyright" aria-hidden="true"></i>
+                    </div>
+                    <h3>Kenya Copyright Board</h3>
+                    <p>Protect your choreographic works and understand intellectual property rights in Kenya.</p>
+                    <span class="resource-tag">Copyright</span>
+                </a>
+
+                <a href="https://www.artslaw.com.au/" target="_blank" rel="noopener" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-gavel" aria-hidden="true"></i>
+                    </div>
+                    <h3>Arts Law Centre</h3>
+                    <p>International legal resources and guidance specifically designed for performing artists.</p>
+                    <span class="resource-tag">International</span>
+                </a>
+
+                <div class="resource-card local-resource">
+                    <div class="resource-icon">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <h3>Legal Aid Kenya</h3>
+                    <p>Free legal assistance for those who cannot afford private legal services. Call their hotline for guidance.</p>
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 0800-720-740</span>
+                        <span><i class="fas fa-envelope"></i> info@legalaid.go.ke</span>
+                    </div>
+                    <span class="resource-tag">Local Support</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="contract-section">
+            <h2 class="section-title">
+                <i class="fas fa-question-circle" aria-hidden="true"></i>
+                Frequently Asked Questions
+            </h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do I really need a contract for small gigs?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, absolutely! Even small gigs benefit from clear agreements. A simple one-page contract can prevent misunderstandings about payment, timing, and expectations. It protects both you and your client.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What if someone refuses to sign a contract?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>This is often a red flag. Professional clients understand the need for contracts. If they refuse, consider whether the risk is worth it. You might suggest a simplified agreement or email confirmation of key terms.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I modify these contract templates?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! These templates are starting points. Customize them for your specific needs, but be careful not to remove important protective clauses. When in doubt, consult with a legal professional.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What should I do if a client breaches the contract?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>First, document the breach and try to resolve it amicably. If that fails, refer to your contract's dispute resolution clause. For significant breaches, consider seeking legal advice from organizations like Legal Aid Kenya.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>How much should I charge for my work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Research market rates in your area and consider your experience, skills, and the event's scope. Don't forget to factor in preparation time, travel, and expenses. Remember: you can always negotiate up from a baseline, but it's hard to increase rates mid-contract.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact for Help -->
+        <section class="help-section">
+            <div class="help-content">
+                <h2>Need Personal Guidance?</h2>
+                <p>Our contract templates cover most situations, but every case is unique. If you're facing a complex situation or need personalized advice, we're here to help connect you with resources.</p>
+                <div class="help-options">
+                    <a href="contact.html" class="btn primary">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        Get Help
+                    </a>
+                    <a href="careers.html" class="btn secondary">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        Join Community
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>Katika</span><span class="highlight">NaMe</span>
+                </div>
+                <p>Empowering African dancers to showcase their talent worldwide. Join thousands of creatives building their digital presence with our platform.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Follow us on Instagram" title="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow us on TikTok" title="TikTok">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Subscribe to our YouTube channel" title="YouTube">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="portfolio_gen.html">Portfolio Generator</a>
+                    <a href="contracts.html">Contract Tools</a>
+                    <a href="careers.html">Opportunities</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="#" rel="noopener">Blog</a>
+                    <a href="careers.html">Careers</a>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="#" rel="noopener">Help Center</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="#" rel="noopener">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KatikaNaMe. All rights reserved. Made with ❤️ in Kenya.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.dataset.theme = savedTheme;
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.dataset.theme;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Contract advice data
+        const suggestions = {
+            performance: {
+                title: "Live Performance Contract Guidance",
+                tips: [
+                    "Include detailed rehearsal and performance schedules with specific times and locations.",
+                    "Specify payment per show or per hour, including deposits (typically 25-50% upfront).",
+                    "Include provisions for travel, meals, and accommodations if applicable.",
+                    "Add a clause for equipment or costume responsibilities and backup plans.",
+                    "List the right to cancel and refund conditions for both parties.",
+                    "Include force majeure clauses for weather or emergency cancellations."
+                ],
+                warning: "Be cautious of last-minute changes or non-refundable gigs without proper compensation.",
+                advice: "Always do a site visit or video call to understand the venue and technical requirements."
+            },
+            teaching: {
+                title: "Teaching & Workshop Contract Guidance",
+                tips: [
+                    "Specify the number of sessions, duration, and maximum class size.",
+                    "Clarify whether materials, venues, or equipment are provided.",
+                    "Include cancellation or rescheduling policies for both weather and low enrollment.",
+                    "Mention intellectual property rights for teaching materials and choreography.",
+                    "Define student safety protocols and emergency procedures.",
+                    "Set clear boundaries on student photography/recording during classes."
+                ],
+                warning: "Ensure the contract outlines your liability limits for student injuries.",
+                advice: "Consider requiring students to sign waivers and verify insurance coverage."
+            },
+            promotion: {
+                title: "Influencer/Promotion Contract Guidance",
+                tips: [
+                    "Define the exact number of posts, stories, reels, or videos required.",
+                    "Include specific timelines and platforms for content delivery.",
+                    "Specify content ownership and reuse rights for the brand.",
+                    "Include clauses for metrics reporting and performance bonuses.",
+                    "Set guidelines for content style, messaging, and brand alignment.",
+                    "Define what happens if content doesn't meet engagement expectations."
+                ],
+                warning: "Avoid vague 'exposure-based' payments—always get actual monetary compensation.",
+                advice: "Ask for examples of previous campaigns and expected engagement rates."
+            },
+            choreo: {
+                title: "Choreography & Collaboration Guidance",
+                tips: [
+                    "Clearly define ownership and copyright of the final choreographic work.",
+                    "Include revision limits, rehearsal commitments, and project timelines.",
+                    "Define public credit, recognition, and attribution expectations.",
+                    "Set payment structure: per choreography, per session, or percentage of revenue.",
+                    "Specify how the work can be used, modified, or taught by others.",
+                    "Include clauses for documentation and video recording rights."
+                ],
+                warning: "Without a clear contract, co-creatorship rights can be contested later.",
+                advice: "Document the creative process with notes, videos, or photos for legal protection."
+            },
+            brand: {
+                title: "Brand Representation Contract Guidance",
+                tips: [
+                    "Define the duration and scope of brand representation clearly.",
+                    "Specify exclusivity terms and competing brand restrictions.",
+                    "Include detailed usage rights for your image, likeness, and content.",
+                    "Detail compensation structure: flat fee, royalties, or performance bonuses.",
+                    "Set expectations for social media posting and public appearances.",
+                    "Include termination clauses and what happens to created content."
+                ],
+                warning: "Watch for overly broad image rights that could limit your future work opportunities.",
+                advice: "Negotiate for approval rights on how your image and content will be used."
+            },
+            event: {
+                title: "Event Hosting/Participation Guidance",
+                tips: [
+                    "Clearly define your role, responsibilities, and performance expectations.",
+                    "Include technical requirements, sound equipment, and staging needs.",
+                    "Specify promotional obligations and how you'll be credited.",
+                    "Detail cancellation policies and force majeure clauses.",
+                    "Include provisions for crowd safety and emergency procedures.",
+                    "Set boundaries on additional requests or scope changes during the event."
+                ],
+                warning: "Ensure you're not held liable for event failures beyond your control.",
+                advice: "Do a walkthrough of the venue and meet the event team beforehand."
+            }
+        };
+
+        function getSuggestion() {
+            const type = document.getElementById("engagementType").value;
+            const container = document.getElementById("contractSuggestions");
+            const button = document.getElementById("getAdviceBtn");
+
+            if (!type) {
+                container.innerHTML = "<div class='suggestion-box error'><p>Please select an engagement type first.</p></div>";
+                return;
+            }
+
+            // Add loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting advice...';
+            button.disabled = true;
+
+            // Simulate loading delay
+            setTimeout(() => {
+                const data = suggestions[type];
+
+                if (!data) {
+                    container.innerHTML = "<div class='suggestion-box error'><p>No suggestions available for this type.</p></div>";
+                    return;
+                }
+
+                const tipsHtml = data.tips.map(tip => `<li><i class="fas fa-check"></i>${tip}</li>`).join("");
+                container.innerHTML = `
+                    <div class="suggestion-box">
+                        <h4><i class="fas fa-lightbulb"></i>${data.title}</h4>
+                        <div class="tips-section">
+                            <h5>Key Points to Include:</h5>
+                            <ul class="styled-list">${tipsHtml}</ul>
+                        </div>
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>⚠️ Warning:</strong>
+                                <p>${data.warning}</p>
+                            </div>
+                        </div>
+                        <div class="advice-box">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <strong>💡 Pro Tip:</strong>
+                                <p>${data.advice}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Reset button
+                button.innerHTML = '<i class="fas fa-lightbulb"></i> Get Expert Advice';
+                button.disabled = false;
+
+                // Scroll to results
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 1000);
+        }
+
+        async function generateContractPDF(type) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const templates = {
+                performance: {
+                    title: "LIVE PERFORMANCE AGREEMENT",
+                    content: `This performance agreement is made between [CLIENT/VENUE NAME] ("Client") and [DANCER NAME] ("Performer") for a live dance performance.
+
+PERFORMANCE DETAILS:
+• Event: [EVENT NAME]
+• Date: [PERFORMANCE DATE]
+• Time: [START TIME] - [END TIME]
+• Venue: [VENUE NAME AND ADDRESS]
+• Performance Duration: [DURATION]
+• Type of Performance: [STYLE/TYPE]
+
+COMPENSATION:
+• Total Fee: KES [AMOUNT]
+• Deposit Required: KES [DEPOSIT AMOUNT] (Due: [DATE])
+• Balance Due: KES [BALANCE] (Due: [DATE])
+• Payment Method: [CASH/MPESA/BANK TRANSFER]
+
+RESPONSIBILITIES:
+Client agrees to provide:
+• Appropriate performance space with adequate lighting
+• Sound system and technical support as specified
+• Dressing room facilities
+• Security for performer and equipment
+
+Performer agrees to:
+• Arrive [TIME] before performance for setup
+• Perform for the agreed duration and style
+• Bring specified costumes and props
+• Maintain professional conduct
+
+CANCELLATION POLICY:
+• Client cancellation: Full refund if 7+ days notice, 50% if 3-7 days, deposit retained if less than 3 days
+• Performer cancellation: Full refund minus reasonable expenses incurred by client
+• Force majeure events: Full refund to performer
+
+ADDITIONAL TERMS:
+• Travel and accommodation: [WHO COVERS]
+• Equipment/Costumes: [RESPONSIBILITY]
+• Photography/Recording: [PERMISSIONS]
+• Liability: [INSURANCE REQUIREMENTS]
+
+By signing below, both parties agree to the terms outlined above.
+
+Client Signature: _________________________ Date: _________
+
+Performer Signature: _____________________ Date: _________`
+                },
+
+                teaching: {
+                    title: "DANCE TEACHING / WORKSHOP AGREEMENT",
+                    content: `This agreement is made between [SCHOOL/ORGANIZATION NAME] ("Host") and [INSTRUCTOR NAME] ("Instructor") for dance instruction services.
+
+CLASS DETAILS:
+• Program: [CLASS/WORKSHOP NAME]
+• Schedule: [DAYS AND TIMES]
+• Duration: [NUMBER OF SESSIONS]
+• Location: [VENUE ADDRESS]
+• Class Size: Maximum [NUMBER] students
+• Age Group: [AGE RANGE]
+• Style: [DANCE STYLE]
+
+COMPENSATION:
+• Rate: KES [AMOUNT] per [HOUR/SESSION/STUDENT]
+• Total Estimated: KES [TOTAL AMOUNT]
+• Payment Schedule: [WEEKLY/MONTHLY/UPON COMPLETION]
+• Payment Method: [CASH/MPESA/BANK TRANSFER]
+
+INSTRUCTOR RESPONSIBILITIES:
+• Prepare age-appropriate curriculum and lesson plans
+• Arrive 15 minutes before each class
+• Maintain safe learning environment
+• Provide progress updates to host organization
+• Follow child protection protocols if applicable
+
+HOST RESPONSIBILITIES:
+• Provide suitable dance space with mirrors and sound system
+• Handle student registration and fee collection
+• Ensure adequate insurance coverage
+• Provide marketing support as agreed
+• Maintain facility cleanliness and safety
+
+INTELLECTUAL PROPERTY:
+• Instructor retains rights to choreographic work
+• Host may use instructor's name and likeness for promotion
+• Video recording of classes requires written consent
+
+CANCELLATION & SUBSTITUTION:
+• 24-hour notice required for cancellations
+• Instructor may provide qualified substitute with approval
+• Weather-related cancellations: [POLICY]
+• Make-up sessions: [POLICY]
+
+LIABILITY:
+• Host carries public liability insurance
+• Students must sign waiver forms
+• Instructor not liable for pre-existing student injuries
+
+TERMINATION:
+Either party may terminate with [NUMBER] days written notice.
+
+Signatures:
+
+Host Representative: ______________________ Date: _________
+
+Instructor: ______________________________ Date: _________`
+                },
+
+                promotion: {
+                    title: "INFLUENCER / PROMOTIONAL DANCE AGREEMENT",
+                    content: `This promotional agreement is made between [BRAND NAME] ("Brand") and [INFLUENCER NAME] ("Creator") for social media content creation and promotion.
+
+CAMPAIGN DETAILS:
+• Campaign Name: [CAMPAIGN TITLE]
+• Duration: [START DATE] to [END DATE]
+• Platforms: [INSTAGRAM/TIKTOK/YOUTUBE/OTHER]
+• Primary Message: [CAMPAIGN THEME]
+
+DELIVERABLES:
+• [NUMBER] feed posts on Instagram
+• [NUMBER] stories on Instagram
+• [NUMBER] TikTok videos
+• [NUMBER] YouTube videos/shorts
+• Specific hashtags: [REQUIRED HASHTAGS]
+• Tag mentions: [BRAND HANDLES]
+
+CONTENT REQUIREMENTS:
+• Content must align with brand values and messaging
+• Creator maintains authentic voice and style
+• Brand has approval rights on final content
+• Content must comply with platform advertising policies
+• Clear disclosure of paid partnership required
+
+COMPENSATION:
+• Total Fee: KES [AMOUNT]
+• Bonus for exceeding [NUMBER] views/engagements: KES [BONUS]
+• Payment Schedule: [UPFRONT/UPON COMPLETION/SPLIT]
+• Additional perks: [PRODUCTS/SERVICES]
+
+CONTENT RIGHTS:
+• Creator retains ownership of original content
+• Brand has license to repost on own channels with credit
+• Brand may use content for [TIME PERIOD] for [PURPOSES]
+• Creator may not sell similar content to competitors during campaign
+
+PERFORMANCE METRICS:
+• Expected reach: [NUMBER] accounts
+• Expected engagement rate: [PERCENTAGE]
+• Reporting: Creator provides insights within [TIMEFRAME]
+
+EXCLUSIVITY:
+• Creator agrees not to promote competing brands for [TIME PERIOD]
+• Brand categories excluded: [LIST CATEGORIES]
+
+TERMINATION:
+• Either party may terminate with cause
+• Completed content must be paid for even if campaign terminated
+• Creator must remove content if requested (with payment adjustment)
+
+Brand Representative: _____________________ Date: _________
+
+Creator: ________________________________ Date: _________`
+                },
+
+                choreo: {
+                    title: "CHOREOGRAPHY COLLABORATION AGREEMENT",
+                    content: `This choreography agreement is made between [COLLABORATOR 1 NAME] and [COLLABORATOR 2 NAME] for the creation of original dance work.
+
+PROJECT DETAILS:
+• Project Title: [WORK TITLE]
+• Type: [SOLO/GROUP/COMMERCIAL/ARTISTIC]
+• Performance Date: [DATE]
+• Venue: [LOCATION]
+• Duration of Work: [LENGTH]
+• Rehearsal Period: [START] to [END]
+
+CREATIVE RESPONSIBILITIES:
+Collaborator 1:
+• [SPECIFIC RESPONSIBILITIES]
+• [CONTRIBUTION AREAS]
+
+Collaborator 2:
+• [SPECIFIC RESPONSIBILITIES]
+• [CONTRIBUTION AREAS]
+
+SHARED RESPONSIBILITIES:
+• Joint development of movement vocabulary
+• Collaborative decision-making on artistic direction
+• Shared rehearsal leadership
+• Marketing and promotion coordination
+
+INTELLECTUAL PROPERTY:
+• Joint ownership of choreographic work
+• Both parties credited as co-choreographers
+• Neither party may license work without other's consent
+• Video documentation requires both parties' approval
+• Teaching rights shared equally between collaborators
+
+FINANCIAL ARRANGEMENTS:
+• Total Budget: KES [AMOUNT]
+• Revenue sharing: [PERCENTAGE] / [PERCENTAGE] split
+• Expenses shared equally unless otherwise specified
+• Each party responsible for own transportation/accommodation
+
+REHEARSAL COMMITMENT:
+• [NUMBER] hours per week for [DURATION]
+• Rehearsal schedule: [DAYS AND TIMES]
+• Substitute teaching responsibilities: [POLICY]
+• Attendance requirements: [MINIMUM PERCENTAGE]
+
+PERFORMANCE RIGHTS:
+• Both parties must approve future performances
+• Revenue from future performances split [PERCENTAGE]/[PERCENTAGE]
+• Either party may perform solo excerpts with attribution
+
+DOCUMENTATION:
+• Video recording: [WHO PROVIDES/CONTROLS]
+• Photography: [RIGHTS AND USAGE]
+• Notation: [RESPONSIBILITY]
+
+DISPUTE RESOLUTION:
+• Good faith negotiation required first
+• Mediation if direct negotiation fails
+• Local arbitration as final resort
+
+TERMINATION:
+• [TIME PERIOD] notice required for withdrawal
+• Completed work to date owned jointly
+• Each party retains right to their individual contributions
+
+Collaborator 1: __________________________ Date: _________
+
+Collaborator 2: __________________________ Date: _________`
+                },
+
+                brand: {
+                    title: "BRAND AMBASSADOR AGREEMENT",
+                    content: `This brand ambassador agreement is made between [BRAND NAME] ("Brand") and [AMBASSADOR NAME] ("Ambassador") for ongoing brand representation.
+
+PARTNERSHIP DETAILS:
+• Partnership Duration: [START DATE] to [END DATE]
+• Territory: [GEOGRAPHIC SCOPE]
+• Renewal Terms: [AUTOMATIC/MANUAL/OPTIONS]
+• Ambassador Level: [TIER/CATEGORY]
+
+AMBASSADOR RESPONSIBILITIES:
+• Represent brand positively in all public appearances
+• Create [NUMBER] pieces of content monthly
+• Attend [NUMBER] brand events annually
+• Participate in product launches and campaigns
+• Maintain professional image aligned with brand values
+• Provide feedback on products and marketing initiatives
+
+BRAND COMMITMENTS:
+• Provide products for personal use and content creation
+• Include ambassador in major brand communications
+• Provide advance notice of new products/campaigns
+• Offer training and brand education sessions
+• Support ambassador's career development initiatives
+
+COMPENSATION STRUCTURE:
+• Monthly Retainer: KES [AMOUNT]
+• Performance Bonuses: [CRITERIA AND AMOUNTS]
+• Product Allowance: KES [AMOUNT] monthly
+• Event Appearance Fees: KES [AMOUNT] per event
+• Commission on sales driven: [PERCENTAGE]%
+
+EXCLUSIVITY TERMS:
+• Cannot represent competing brands in [CATEGORIES]
+• Exclusive partnership in [SPECIFIC PRODUCT LINES]
+• Non-compete period extends [TIME] after agreement ends
+• Exceptions for pre-existing partnerships: [LIST]
+
+CONTENT AND USAGE RIGHTS:
+• Brand has right to repost ambassador's branded content
+• Ambassador's image may be used in brand marketing materials
+• Advance approval required for major campaigns using ambassador's likeness
+• Ambassador retains ownership of personal content
+• Brand provides content guidelines and brand assets
+
+PERFORMANCE METRICS:
+• Minimum monthly reach: [NUMBER] accounts
+• Target engagement rate: [PERCENTAGE]
+• Brand mention requirements: [FREQUENCY]
+• Event attendance: [MINIMUM REQUIREMENTS]
+• Quarterly performance reviews conducted
+
+TERMINATION CONDITIONS:
+• Either party may terminate with [TIME PERIOD] notice
+• Immediate termination for breach of exclusivity
+• Compensation prorated to termination date
+• Return of brand products required upon termination
+• Post-termination obligations: [SPECIFY]
+
+CONFIDENTIALITY:
+• Non-disclosure of proprietary brand information
+• Advance product information remains confidential
+• Marketing strategies and plans protected
+• Violation results in immediate termination
+
+Brand Representative: _____________________ Date: _________
+
+Ambassador: _____________________________ Date: _________`
+                },
+
+                event: {
+                    title: "EVENT HOSTING / PARTICIPATION AGREEMENT",
+                    content: `This event agreement is made between [EVENT ORGANIZER] ("Organizer") and [HOST/PERFORMER NAME] ("Participant") for event hosting/participation services.
+
+EVENT DETAILS:
+• Event Name: [EVENT TITLE]
+• Date: [EVENT DATE]
+• Venue: [LOCATION AND ADDRESS]
+• Expected Attendance: [NUMBER] people
+• Event Duration: [START TIME] to [END TIME]
+• Participant Role: [HOST/PERFORMER/MC/OTHER]
+
+PARTICIPANT RESPONSIBILITIES:
+• Arrive [TIME] before event start for setup/briefing
+• [SPECIFIC DUTIES AND ACTIVITIES]
+• Maintain professional demeanor throughout event
+• Follow event schedule and cue instructions
+• Participate in post-event activities as required
+• Wear appropriate attire as discussed
+
+ORGANIZER RESPONSIBILITIES:
+• Provide detailed event schedule and contact information
+• Supply all necessary equipment and technical support
+• Ensure safe working environment
+• Provide dressing room/preparation space
+• Handle all event logistics and crowd management
+• Obtain necessary permits and insurance
+
+TECHNICAL REQUIREMENTS:
+• Sound System: [SPECIFICATIONS]
+• Lighting: [REQUIREMENTS]
+• Stage/Performance Area: [DIMENSIONS]
+• Microphones: [NUMBER AND TYPE]
+• Additional Equipment: [LIST]
+
+COMPENSATION:
+• Fee: KES [AMOUNT]
+• Payment Method: [CASH/MPESA/BANK TRANSFER]
+• Payment Schedule: [BEFORE/DURING/AFTER EVENT]
+• Additional Expenses Covered: [TRANSPORT/MEALS/ACCOMMODATION]
+
+PROMOTION AND MARKETING:
+• Participant agrees to reasonable promotional activities
+• Organizer may use participant's name and likeness for marketing
+• Social media promotion: [REQUIREMENTS]
+• Media interviews: [AVAILABILITY]
+
+CANCELLATION POLICY:
+• Weather-related cancellations: [POLICY]
+• Organizer cancellation: [NOTICE PERIOD AND COMPENSATION]
+• Participant cancellation: [NOTICE PERIOD AND PENALTIES]
+• Force majeure events: [PROVISIONS]
+
+LIABILITY AND INSURANCE:
+• Organizer maintains public liability insurance
+• Participant not liable for crowd control issues
+• Equipment damage: [RESPONSIBILITY]
+• Personal injury: [COVERAGE]
+
+INTELLECTUAL PROPERTY:
+• Participant retains rights to original creative content
+• Event recording and photography: [PERMISSIONS]
+• Future use of recordings: [TERMS]
+
+ADDITIONAL TERMS:
+• Dress code: [SPECIFICATIONS]
+• Behavior standards: [EXPECTATIONS]
+• Emergency procedures: [PROTOCOLS]
+• Contact person during event: [NAME AND NUMBER]
+
+Organizer Representative: _________________ Date: _________
+
+Participant: _____________________________ Date: _________`
+                }
+            };
+
+            const template = templates[type];
+            if (!template) {
+                alert('Template not found for this contract type.');
+                return;
+            }
+
+            // Add header
+            doc.setFont('Helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.text(template.title, 105, 20, { align: 'center' });
+
+            // Add subtitle
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.text('Generated by KatikaNaMe Contract Helper', 105, 30, { align: 'center' });
+            doc.text(`Date Generated: ${new Date().toLocaleDateString()}`, 105, 35, { align: 'center' });
+
+            // Add content
+            doc.setFontSize(9);
+            const lines = doc.splitTextToSize(template.content, 180);
+            let y = 50;
+
+            lines.forEach(line => {
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+                doc.text(line, 15, y);
+                y += 4;
+            });
+
+            // Add footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFont('Helvetica', 'normal');
+                doc.setFontSize(8);
+                doc.text(
+                    `Page ${i} of ${pageCount} | This is a template - please customize for your specific needs | KatikaNaMe.com`,
+                    105,
+                    285,
+                    { align: 'center' }
+                );
+            }
+
+            // Download the PDF
+            doc.save(`${type}-contract-template-katikaname.pdf`);
+
+            // Track download
+            console.log('Contract downloaded:', type);
+        }
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = button.querySelector('i');
+
+            faqItem.classList.toggle('active');
+            
+            if (faqItem.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Stats counter animation
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.dataset.suffix || '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.dataset.suffix || '');
+                }
+            }, 50);
+        }
+
+        // Animate stats when they come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const numbers = entry.target.querySelectorAll('.stat-number');
+                    numbers.forEach(num => {
+                        const target = parseInt(num.textContent.replace(/\D/g, ''));
+                        num.dataset.suffix = num.textContent.replace(/\d/g, '');
+                        animateCounter(num, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stats-section').forEach(section => {
+            statsObserver.observe(section);
+        });
+    </script>
+
+    <!-- Contract page specific styles -->
+    <style>
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+        }
+
+        .stats-section {
+            background: rgba(26, 26, 36, 0.8);
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: rgba(176, 38, 255, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-heading);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: var(--space-xs);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+
+        .warning-card {
+            border-color: rgba(245, 158, 11, 0.3) !important;
+            background: rgba(245, 158, 11, 0.05) !important;
+        }
+
+        .warning-card h3 {
+            color: var(--warning) !important;
+        }
+
+        .warning-list li::before {
+            content: '⚠️';
+            color: var(--warning);
+        }
+
+        .success-card {
+            border-color: rgba(16, 185, 129, 0.3) !important;
+            background: rgba(16, 185, 129, 0.05) !important;
+        }
+
+        .success-card h3 {
+            color: var(--success) !important;
+        }
+
+        .rights-list li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+
+        .template-card {
+            background: rgba(26, 26, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-xl);
+            border: 1px solid rgba(176, 38, 255, 0.2);
+            transition: all var(--transition-normal);
+            text-align: center;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .template-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--border-radius);
+            font-size: 2rem;
+            color: white;
+        }
+
+        .template-features {
+            display: flex;
+            gap: var(--space-xs);
+            margin: var(--space-md) 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature {
+            background: rgba(176, 38, 255, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .tip-card {
+            background: rgba(26, 26, 36, 0.8);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(176, 38, 255, 0.2);
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .tip-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .suggestion-box {
+            background: rgba(176, 38, 255, 0.05);
+            border: 1px solid rgba(176, 38, 255, 0.3);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .suggestion-box h4 {
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .tips-section {
+            margin: var(--space-md) 0;
+        }
+
+        .tips-section h5 {
+            color: var(--accent);
+            margin-bottom: var(--space-sm);
+        }
+
+        .advice-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+
+        .advice-box i {
+            color: var(--success);
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .advice-box strong {
+            color: var(--success);
+        }
+
+        .resource-tag {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .local-resource {
+            border-color: var(--accent) !important;
+        }
+
+        .local-resource .resource-tag {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin: var(--space-sm) 0;
+            font-size: 0.9rem;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            width: 16px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(26, 26, 36, 0.8);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-md);
+            overflow: hidden;
+            border: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: var(--space-lg);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .faq-question:hover {
+            background: rgba(176, 38, 255, 0.1);
+        }
+
+        .faq-question i {
+            transition: transform var(--transition-normal);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-normal);
+        }
+
+        .faq-answer p {
+            padding: 0 var(--space-lg) var(--space-lg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .help-section {
+            background: linear-gradient(135deg, rgba(176, 38, 255, 0.1), rgba(255, 210, 63, 0.1));
+            padding: var(--space-xxl);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            margin: var(--space-xxl) 0;
+        }
+
+        .help-content h2 {
+            color: var(--accent);
+            margin-bottom: var(--space-md);
+        }
+
+        .help-content p {
+            max-width: 600px;
+            margin: 0 auto var(--space-xl);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .help-options {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .education-grid,
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tip-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .help-options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>

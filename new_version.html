@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatikaNaMe - Portfolio Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #B026FF;
+            --primary-dark: #8a1fc9;
+            --accent: #FFD23F;
+            --dark: #0a0a12;
+            --light: #f5f5f7;
+            --text-gray: #a1a1a6;
+            --border-radius: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo .highlight {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn.secondary {
+            background: rgba(176, 38, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            background: rgba(176, 38, 255, 0.1);
+            color: var(--text-gray);
+            transition: all 0.3s;
+        }
+
+        .step.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .step.completed {
+            background: #10b981;
+            color: white;
+        }
+
+        /* Form Styles */
+        .form-section {
+            background: rgba(26, 26, 36, 0.8);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        .form-section.hidden {
+            display: none;
+        }
+
+        fieldset {
+            border: none;
+            margin-bottom: 2rem;
+        }
+
+        legend {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            background: rgba(26, 26, 36, 0.9);
+            border: 1px solid rgba(176, 38, 255, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--light);
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(176, 38, 255, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* File Upload */
+        .file-upload-area {
+            border: 2px dashed rgba(176, 38, 255, 0.5);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(26, 26, 36, 0.5);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(176, 38, 255, 0.1);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--accent);
+            background: rgba(255, 210, 63, 0.1);
+        }
+
+        .file-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .file-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background: rgba(26, 26, 36, 0.8);
+        }
+
+        .file-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .file-item .remove-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Social Media */
+        .social-media-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .social-input {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(26, 26, 36, 0.9);
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(176, 38, 255, 0.3);
+        }
+
+        .social-input i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-input input {
+            border: none;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Template Selection */
+        .template-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .template-card {
+            background: rgba(26, 26, 36, 0.8);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .template-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(176, 38, 255, 0.3);
+        }
+
+        .template-preview {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .template-info {
+            padding: 1.5rem;
+        }
+
+        .template-name {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .template-desc {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Output Options */
+        .output-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .output-card {
+            background: rgba(26, 26, 36, 0.8);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid rgba(176, 38, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .output-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .output-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .output-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        /* Preview */
+        .preview-container {
+            background: rgba(26, 26, 36, 0.8);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        .preview-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .message.info {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Domain Input */
+        .domain-input {
+            display: flex;
+            align-items: center;
+            background: rgba(26, 26, 36, 0.9);
+            border: 1px solid rgba(176, 38, 255, 0.3);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .domain-input input {
+            border: none;
+            background: transparent;
+            margin: 0;
+            padding: 0.75rem;
+            flex: 1;
+        }
+
+        .domain-suffix {
+            padding: 0.75rem;
+            background: rgba(176, 38, 255, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 26, 36, 0.8);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(176, 38, 255, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        .link-group h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .link-group a {
+            display: block;
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .link-group a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(176, 38, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .social-media-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span>Katika</span><span class="highlight">NaMe</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="new_version.html" class="active">Portfolio Generator</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contracts.html">Contracts</a></li>
+                <li><a href="careers.html">Contracts</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="main-container">
+        <h1 class="page-title">Create Your Professional Portfolio</h1>
+        
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </div>
+            <div class="step" data-step="2">
+                <i class="fas fa-palette"></i>
+                <span>Template</span>
+            </div>
+            <div class="step" data-step="3">
+                <i class="fas fa-rocket"></i>
+                <span>Publish</span>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="messageArea"></div>
+
+        <!-- Step 1: Profile Information -->
+        <div class="form-section" id="step1">
+            <form id="portfolioForm">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        <label>
+                            Name *
+                            <input type="text" id="name" required placeholder="e.g. Amani Okoth">
+                        </label>
+                        <label>
+                            Email *
+                            <input type="email" id="email" required placeholder="your@email.com">
+                        </label>
+                        <label>
+                            Professional Title *
+                            <input type="text" id="title" required placeholder="e.g. Professional Dancer & Choreographer">
+                        </label>
+                        <label>
+                            Category *
+                            <select id="category" required>
+                                <option value="">Select Category</option>
+                                <option value="dancer">Dancer</option>
+                                <option value="musician">Musician</option>
+                                <option value="visual_artist">Visual Artist</option>
+                                <option value="multi_disciplinary">Multi-Disciplinary</option>
+                            </select>
+                        </label>
+                        <label>
+                            Experience Level *
+                            <select id="experience" required>
+                                <option value="">Select Experience</option>
+                                <option value="beginner">Beginner (0-2 years)</option>
+                                <option value="intermediate">Intermediate (3-5 years)</option>
+                                <option value="advanced">Advanced (6-10 years)</option>
+                                <option value="professional">Professional (10+ years)</option>
+                            </select>
+                        </label>
+                        <label>
+                            Location
+                            <input type="text" id="location" placeholder="e.g. Nairobi, Kenya">
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Profile Picture & Media</legend>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <p>Drag and drop your files here or click to browse</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Supports images, videos, and PDFs (max 10MB each)</p>
+                        <input type="file" id="mediaFiles" multiple accept="image/*,video/*,.pdf" style="display: none;">
+                    </div>
+                    <div id="filePreview" class="file-preview"></div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>About & Experience</legend>
+                    <label>
+                        About Me *
+                        <textarea id="aboutMe" required placeholder="Tell your story... What drives your passion? What makes you unique?"></textarea>
+                    </label>
+                    <label>
+                        Performance History / Work Experience
+                        <textarea id="jobs" placeholder="List your notable performances, shows, collaborations, or work experience"></textarea>
+                    </label>
+                    <label>
+                        Services Offered
+                        <textarea id="services" placeholder="What services do you offer? (performances, workshops, commissions, etc.)"></textarea>
+                    </label>
+                    <label>
+                        Testimonials
+                        <textarea id="testimonials" placeholder="What have others said about your work?"></textarea>
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Skills & Specialties</legend>
+                    <label>
+                        Skills/Genres (comma-separated) *
+                        <input type="text" id="skills" required placeholder="e.g. Afrofusion, Traditional, Contemporary, Hip-Hop">
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Social Media & Contact</legend>
+                    <div class="social-media-section">
+                        <div class="social-input">
+                            <i class="fab fa-instagram"></i>
+                            <input type="url" id="instagram" placeholder="Instagram URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-youtube"></i>
+                            <input type="url" id="youtube" placeholder="YouTube URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-tiktok"></i>
+                            <input type="url" id="tiktok" placeholder="TikTok URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-facebook"></i>
+                            <input type="url" id="facebook" placeholder="Facebook URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-twitter"></i>
+                            <input type="url" id="twitter" placeholder="Twitter URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fas fa-globe"></i>
+                            <input type="url" id="website" placeholder="Personal Website">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <label>
+                            Phone Number
+                            <input type="text" id="phone" placeholder="+254 700 123456">
+                        </label>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="form-navigation">
+                <div>
+                    <button type="button" id="saveBtn" class="btn secondary">
+                        <i class="fas fa-save"></i> Save Draft
+                    </button>
+                    <button type="button" id="loadBtn" class="btn secondary">
+                        <i class="fas fa-folder-open"></i> Load Draft
+                    </button>
+                </div>
+                <button type="button" id="nextStep1" class="btn primary">
+                    Next: Choose Template <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Template Selection -->
+        <div class="form-section hidden" id="step2">
+            <fieldset>
+                <legend>Choose Your Template</legend>
+                <div class="template-selection">
+                    <div class="template-card selected" data-template="modern">
+                        <div class="template-preview" style="background: linear-gradient(135deg, #B026FF, #8a1fc9);"></div>
+                        <div class="template-info">
+                            <h3 class="template-name">Modern</h3>
+                            <p class="template-desc">Clean, minimalist design with bold typography and vibrant colors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="template-card" data-template="classic">
+                        <div class="template-preview" style="background: linear-gradient(135deg, #1f2937, #374151);"></div>
+                        <div class="template-info">
+                            <h3 class="template-name">Classic</h3>
+                            <p class="template-desc">Traditional sidebar layout with elegant styling and professional look</p>
+                        </div>
+                    </div>
+                    
+                    <div class="template-card" data-template="artistic">
+                        <div class="template-preview" style="background: linear-gradient(135deg, #540d6e, #B026FF, #FFD23F);"></div>
+                        <div class="template-info">
+                            <h3 class="template-name">Artistic</h3>
+                            <p class="template-desc">Creative, bold design with dramatic elements and expressive layout</p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Customize Colors (Optional)</legend>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <label>
+                        Primary Color
+                        <input type="color" id="primaryColor" value="#B026FF">
+                    </label>
+                    <label>
+                        Accent Color
+                        <input type="color" id="accentColor" value="#FFD23F">
+                    </label>
+                    <label>
+                        Background Color
+                        <input type="color" id="backgroundColor" value="#0a0a12">
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="form-navigation">
+                <button type="button" id="prevStep2" class="btn secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button type="button" id="nextStep2" class="btn primary">
+                    Next: Publish Options <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Publish Options -->
+        <div class="form-section hidden" id="step3">
+            <fieldset>
+                <legend>Choose Output Format</legend>
+                <div class="output-options">
+                    <div class="output-card" data-output="web">
+                        <i class="fas fa-globe"></i>
+                        <h3>Web Portfolio</h3>
+                        <p>Get a live website with your custom domain</p>
+                        <div class="domain-input" style="margin-top: 1rem;">
+                            <input type="text" id="customDomain" placeholder="yourname">
+                            <span class="domain-suffix">.katikaname.com</span>
+                        </div>
+                        <button class="btn primary" id="generateWebBtn" style="margin-top: 1rem;">
+                            <i class="fas fa-rocket"></i> Create Website
+                        </button>
+                    </div>
+                    
+                    <div class="output-card" data-output="pdf">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>PDF Portfolio</h3>
+                        <p>Download a professional PDF portfolio</p>
+                        <button class="btn primary" id="generatePdfBtn" style="margin-top: 2rem;">
+                            <i class="fas fa-download"></i> Generate PDF
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-navigation">
+                <button type="button" id="prevStep3" class="btn secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button type="button" id="createArtistProfile" class="btn success">
+                    <i class="fas fa-user-plus"></i> Save to Artist Directory
+                </button>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="portfolioPreview" class="hidden">
+            <h2 style="text-align: center; margin: 2rem 0; color: var(--accent);">
+                <i class="fas fa-eye"></i> Portfolio Preview
+            </h2>
+            <div class="preview-container">
+                <iframe id="portfolioFrame"></iframe>
+            </div>
+            <div style="text-align: center; margin: 2rem 0; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a id="liveLink" href="#" target="_blank" class="btn primary hidden">
+                    <i class="fas fa-external-link-alt"></i> Visit Live Site
+                </a>
+                <a id="downloadLink" href="#" target="_blank" class="btn warning hidden">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+                <button id="editPortfolio" class="btn secondary">
+                    <i class="fas fa-edit"></i> Edit Portfolio
+                </button>
+                <button id="sharePortfolio" class="btn success">
+                    <i class="fas fa-share-alt"></i> Share Portfolio
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>Katika</span><span class="highlight">NaMe</span>
+                </div>
+                <p>Empowering African creatives to showcase their talent worldwide.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="portfolio_gen.html">Portfolio Generator</a>
+                    <a href="contracts.html">Contract Tools</a>
+                    <a href="#">Artist Directory</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="#">Blog</a>
+                    <a href="careers.html">Careers</a>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="#">Privacy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KatikaNaMe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:3000/api'; // Change for production
+        
+        // State Management
+        let currentStep = 1;
+        let selectedTemplate = 'modern';
+        let uploadedFiles = [];
+        let currentArtistId = null;
+        let currentPortfolioId = null;
+
+        // Sample data for demo
+        const sampleData = {
+            name: "Amani Okoth",
+            email: "amani@afrodance.co.ke",
+            title: "Afrofusion Dance Artist",
+            category: "dancer",
+            experience: "professional",
+            location: "Nairobi, Kenya",
+            aboutMe: "Nairobi-based dancer specializing in Afrofusion and traditional African dance forms. Trained at the Kenya National Theatre and performed across East Africa and Europe. My work blends contemporary techniques with indigenous movement vocabularies.",
+            jobs: "• Lead Dancer - Sarakasi Trust (2019-present)\n• Featured Performer - Koroga Festival 2022\n• Choreographer - 'Maji Ya Uhai' production 2021\n• Dance Instructor - GoDown Arts Centre",
+            services: "• Afrofusion Performances\n• Traditional Dance Workshops\n• Choreography for Events\n• Cultural Consultancy\n• Dance Fitness Classes",
+            testimonials: '"Amani\'s performance at our festival was electrifying. She brings authentic African energy to the stage." - Koroga Festival Director\n\n"Working with Amani transformed our production. Her knowledge of traditional movement is unparalleled." - Theatre Producer',
+            skills: "Afrofusion, Traditional, Contemporary, Ngoma, Choreography",
+            phone: "+254 700 123456",
+            instagram: "https://instagram.com/amani_dances",
+            youtube: "https://youtube.com/amaniokoth",
+            tiktok: "https://tiktok.com/@amani_afro",
+            facebook: "https://facebook.com/amaniokothdance",
+            twitter: "https://twitter.com/amani_dances",
+            website: "https://amaniokoth.com"
+        };
+
+        // Utility Functions
+        function showMessage(message, type = 'info') {
+            const messageArea = document.getElementById('messageArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'error' ? 'exclamation-circle' : 'info-circle';
+            
+            messageDiv.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" style="margin-left: auto; background: none; border: none; color: inherit; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            messageArea.appendChild(messageDiv);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (messageDiv.parentElement) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+
+        function updateProgressSteps() {
+            document.querySelectorAll('.step').forEach((step, index) => {
+                const stepNumber = index + 1;
+                step.classList.remove('active', 'completed');
+                
+                if (stepNumber < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNumber === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show current step
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            
+            currentStep = step;
+            updateProgressSteps();
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const required = ['name', 'email', 'title', 'category', 'experience', 'aboutMe', 'skills'];
+                for (const field of required) {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        showMessage(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field`, 'error');
+                        element.focus();
+                        return false;
+                    }
+                }
+                
+                // Email validation
+                const email = document.getElementById('email').value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // File Upload Handling
+        function setupFileUpload() {
+            const uploadArea = document.getElementById('fileUploadArea');
+            const fileInput = document.getElementById('mediaFiles');
+            
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+        }
+
+        function handleFiles(files) {
+            const preview = document.getElementById('filePreview');
+            
+            Array.from(files).forEach(file => {
+                if (file.size > 10 * 1024 * 1024) {
+                    showMessage(`File ${file.name} is too large. Maximum size is 10MB.`, 'error');
+                    return;
+                }
+                
+                uploadedFiles.push(file);
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    fileItem.appendChild(img);
+                } else {
+                    const icon = document.createElement('div');
+                    icon.style.cssText = 'padding: 2rem; text-align: center; color: var(--primary);';
+                    icon.innerHTML = `<i class="fas fa-file" style="font-size: 2rem;"></i><br><small>${file.name}</small>`;
+                    fileItem.appendChild(icon);
+                }
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-btn';
+                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                removeBtn.onclick = () => {
+                    const index = uploadedFiles.indexOf(file);
+                    if (index > -1) uploadedFiles.splice(index, 1);
+                    fileItem.remove();
+                };
+                
+                fileItem.appendChild(removeBtn);
+                preview.appendChild(fileItem);
+            });
+        }
+
+        // Template Selection
+        function setupTemplateSelection() {
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.template-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedTemplate = card.dataset.template;
+                });
+            });
+        }
+
+        // API Functions
+        async function createArtistProfile(formData) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/artists`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create artist profile');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error creating artist profile:', error);
+                throw error;
+            }
+        }
+
+        async function createPortfolio(portfolioData) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/portfolios`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(portfolioData)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create portfolio');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error creating portfolio:', error);
+                throw error;
+            }
+        }
+
+        async function generatePDF(portfolioId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}/generate-pdf`, {
+                    method: 'POST'
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to generate PDF');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                throw error;
+            }
+        }
+
+        // Form Data Collection
+        function collectFormData() {
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').value,
+                experience: document.getElementById('experience').value,
+                location: document.getElementById('location').value,
+                aboutMe: document.getElementById('aboutMe').value,
+                jobs: document.getElementById('jobs').value,
+                services: document.getElementById('services').value,
+                testimonials: document.getElementById('testimonials').value,
+                skills: document.getElementById('skills').value,
+                phone: document.getElementById('phone').value,
+                instagram: document.getElementById('instagram').value,
+                youtube: document.getElementById('youtube').value,
+                tiktok: document.getElementById('tiktok').value,
+                facebook: document.getElementById('facebook').value,
+                twitter: document.getElementById('twitter').value,
+                website: document.getElementById('website').value
+            };
+            
+            // Parse location
+            if (formData.location) {
+                const locationParts = formData.location.split(',');
+                formData.locationObj = {
+                    city: locationParts[0]?.trim(),
+                    country: locationParts[1]?.trim()
+                };
+            }
+            
+            // Parse skills
+            formData.skillsArray = formData.skills.split(',').map(skill => skill.trim()).filter(skill => skill);
+            
+            return formData;
+        }
+
+        function createFormDataForAPI(formData) {
+            const apiFormData = new FormData();
+            
+            // Basic fields
+            apiFormData.append('name', formData.name);
+            apiFormData.append('email', formData.email);
+            apiFormData.append('bio', formData.aboutMe);
+            apiFormData.append('category', formData.category);
+            apiFormData.append('experience', formData.experience);
+            
+            // JSON fields
+            apiFormData.append('genres', JSON.stringify(formData.skillsArray));
+            apiFormData.append('location', JSON.stringify(formData.locationObj || {}));
+            apiFormData.append('socialLinks', JSON.stringify({
+                instagram: formData.instagram,
+                youtube: formData.youtube,
+                tiktok: formData.tiktok,
+                facebook: formData.facebook,
+                twitter: formData.twitter,
+                website: formData.website
+            }));
+            
+            // Files
+            uploadedFiles.forEach((file, index) => {
+                apiFormData.append('files', file);
+            });
+            
+            return apiFormData;
+        }
+
+        // Portfolio Generation
+        function generateTemplateHTML(data, template) {
+            const skillsList = data.skillsArray || [];
+            const year = new Date().getFullYear();
+            
+            // Get custom colors
+            const primaryColor = document.getElementById('primaryColor').value;
+            const accentColor = document.getElementById('accentColor').value;
+            const backgroundColor = document.getElementById('backgroundColor').value;
+            
+            // Generate HTML based on template (simplified version)
+            let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${data.name} - ${data.title}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: ${primaryColor};
+            --accent: ${accentColor};
+            --background: ${backgroundColor};
+            --light: #f5f5f7;
+            --text-gray: #a1a1a6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent);
+            margin-bottom: 2rem;
+        }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; }
+        h2 { color: var(--accent); margin: 2rem 0 1rem; }
+        section { padding: 2rem 0; }
+        .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .social-links { display: flex; gap: 15px; margin-top: 1rem; }
+        .social-links a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        footer { text-align: center; padding: 2rem 0; color: var(--text-gray); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="${data.name}" class="profile-img">
+            <h1>${data.name}</h1>
+            <h3>${data.title}</h3>
+            <p>${data.experience} level • ${data.location || 'Creative Professional'}</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>About Me</h2>
+            <p>${data.aboutMe}</p>
+        </section>
+
+        ${data.jobs ? `
+        <section>
+            <h2>Experience</h2>
+            <div style="white-space: pre-line;">${data.jobs}</div>
+        </section>
+        ` : ''}
+
+        <section>
+            <h2>Skills</h2>
+            <div class="skills">
+                ${skillsList.map(skill => `<span class="skill">${skill}</span>`).join('')}
+            </div>
+        </section>
+
+        ${data.services ? `
+        <section>
+            <h2>Services</h2>
+            <div style="white-space: pre-line;">${data.services}</div>
+        </section>
+        ` : ''}
+
+        ${data.testimonials ? `
+        <section>
+            <h2>Testimonials</h2>
+            <div style="white-space: pre-line; font-style: italic;">${data.testimonials}</div>
+        </section>
+        ` : ''}
+
+        <section>
+            <h2>Connect With Me</h2>
+            <div class="social-links">
+                ${data.instagram ? `<a href="${data.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                ${data.youtube ? `<a href="${data.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
+                ${data.tiktok ? `<a href="${data.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                ${data.facebook ? `<a href="${data.facebook}" target="_blank"><i class="fab fa-facebook"></i></a>` : ''}
+                ${data.twitter ? `<a href="${data.twitter}" target="_blank"><i class="fab fa-twitter"></i></a>` : ''}
+                ${data.website ? `<a href="${data.website}" target="_blank"><i class="fas fa-globe"></i></a>` : ''}
+            </div>
+            <div style="margin-top: 1rem;">
+                <p>Email: <a href="mailto:${data.email}" style="color: var(--accent);">${data.email}</a></p>
+                ${data.phone ? `<p>Phone: ${data.phone}</p>` : ''}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; ${year} ${data.name}. All rights reserved.</p>
+    </footer>
+</body>
+</html>`;
+            
+            return html;
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Navigation
+            document.getElementById('nextStep1').addEventListener('click', () => {
+                if (validateStep(1)) {
+                    showStep(2);
+                }
+            });
+            
+            document.getElementById('prevStep2').addEventListener('click', () => showStep(1));
+            document.getElementById('nextStep2').addEventListener('click', () => showStep(3));
+            document.getElementById('prevStep3').addEventListener('click', () => showStep(2));
+            
+            // Save/Load
+            document.getElementById('saveBtn').addEventListener('click', () => {
+                const formData = collectFormData();
+                localStorage.setItem('portfolioData', JSON.stringify(formData));
+                showMessage('Portfolio draft saved successfully!', 'success');
+            });
+            
+            document.getElementById('loadBtn').addEventListener('click', () => {
+                const saved = localStorage.getItem('portfolioData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    Object.keys(data).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element && typeof data[key] === 'string') {
+                            element.value = data[key];
+                        }
+                    });
+                    showMessage('Portfolio draft loaded successfully!', 'success');
+                } else {
+                    showMessage('No saved draft found', 'error');
+                }
+            });
+            
+            // Create Artist Profile
+            document.getElementById('createArtistProfile').addEventListener('click', async () => {
+                if (!validateStep(1)) return;
+                
+                const button = document.getElementById('createArtistProfile');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<span class="loading">Creating Profile...</span>';
+                button.disabled = true;
+                
+                try {
+                    const formData = collectFormData();
+                    const apiFormData = createFormDataForAPI(formData);
+                    
+                    const result = await createArtistProfile(apiFormData);
+                    currentArtistId = result.artist._id;
+                    
+                    showMessage('Artist profile created successfully!', 'success');
+                } catch (error) {
+                    showMessage(`Error: ${error.message}`, 'error');
+                } finally {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            });
+            
+            // Generate Web Portfolio
+            document.getElementById('generateWebBtn').addEventListener('click', async () => {
+                const button = document.getElementById('generateWebBtn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<span class="loading">Creating Website...</span>';
+                button.disabled = true;
+                
+                try {
+                    const formData = collectFormData();
+                    
+                    // Create portfolio data for API
+                    const portfolioData = {
+                        artistId: currentArtistId,
+                        template: selectedTemplate,
+                        title: `${formData.name} Portfolio`,
+                        description: formData.aboutMe,
+                        sections: [
+                            { type: 'about', title: 'About Me', content: formData.aboutMe },
+                            { type: 'experience', title: 'Experience', content: formData.jobs },
+                            { type: 'contact', title: 'Contact', content: `Email: ${formData.email}` }
+                        ],
+                        customizations: {
+                            colors: {
+                                primary: document.getElementById('primaryColor').value,
+                                secondary: '#ffffff',
+                                accent: document.getElementById('accentColor').value
+                            },
+                            fonts: {
+                                heading: 'Montserrat',
+                                body: 'Poppins'
+                            }
+                        }
+                    };
+                    
+                    // If no artist profile yet, create one first
+                    if (!currentArtistId) {
+                        const apiFormData = createFormDataForAPI(formData);
+                        const artistResult = await createArtistProfile(apiFormData);
+                        currentArtistId = artistResult.artist._id;
+                        portfolioData.artistId = currentArtistId;
+                    }
+                    
+                    const result = await createPortfolio(portfolioData);
+                    currentPortfolioId = result.portfolio._id;
+                    
+                    // Show preview
+                    const frame = document.getElementById('portfolioFrame');
+                    frame.srcdoc = generateTemplateHTML(formData, selectedTemplate);
+                    
+                    const customDomain = document.getElementById('customDomain').value || formData.name.toLowerCase().replace(/\s+/g, '');
+                    const liveLink = document.getElementById('liveLink');
+                    liveLink.href = `https://${customDomain}.katikaname.com`;
+                    liveLink.classList.remove('hidden');
+                    
+                    document.getElementById('portfolioPreview').classList.remove('hidden');
+                    document.getElementById('portfolioPreview').scrollIntoView({ behavior: 'smooth' });
+                    
+                    showMessage('Web portfolio created successfully!', 'success');
+                } catch (error) {
+                    showMessage(`Error: ${error.message}`, 'error');
+                } finally {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            });
+            
+            // Generate PDF
+            document.getElementById('generatePdfBtn').addEventListener('click', async () => {
+                const button = document.getElementById('generatePdfBtn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<span class="loading">Generating PDF...</span>';
+                button.disabled = true;
+                
+                try {
+                    const formData = collectFormData();
+                    
+                    // If no portfolio yet, create one first
+                    if (!currentPortfolioId) {
+                        if (!currentArtistId) {
+                            const apiFormData = createFormDataForAPI(formData);
+                            const artistResult = await createArtistProfile(apiFormData);
+                            currentArtistId = artistResult.artist._id;
+                        }
+                        
+                        const portfolioData = {
+                            artistId: currentArtistId,
+                            template: selectedTemplate,
+                            title: `${formData.name} Portfolio`,
+                            description: formData.aboutMe,
+                            sections: [
+                                { type: 'about', title: 'About Me', content: formData.aboutMe },
+                                { type: 'experience', title: 'Experience', content: formData.jobs }
+                            ]
+                        };
+                        
+                        const portfolioResult = await createPortfolio(portfolioData);
+                        currentPortfolioId = portfolioResult.portfolio._id;
+                    }
+                    
+                    const result = await generatePDF(currentPortfolioId);
+                    
+                    const downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = `${API_BASE_URL.replace('/api', '')}${result.downloadUrl}`;
+                    downloadLink.classList.remove('hidden');
+                    
+                    showMessage('PDF portfolio generated successfully!', 'success');
+                } catch (error) {
+                    showMessage(`Error: ${error.message}`, 'error');
+                } finally {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            });
+            
+            // Edit Portfolio
+            document.getElementById('editPortfolio').addEventListener('click', () => {
+                document.getElementById('portfolioPreview').classList.add('hidden');
+                showStep(1);
+            });
+            
+            // Share Portfolio
+            document.getElementById('sharePortfolio').addEventListener('click', () => {
+                const liveLink = document.getElementById('liveLink').href;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Check out my portfolio!',
+                        url: liveLink
+                    });
+                } else {
+                    navigator.clipboard.writeText(liveLink).then(() => {
+                        showMessage('Portfolio link copied to clipboard!', 'success');
+                    });
+                }
+            });
+        }
+
+        // Fill sample data for demo
+        function fillSampleData() {
+            Object.keys(sampleData).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = sampleData[key];
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setupFileUpload();
+            setupTemplateSelection();
+            setupEventListeners();
+            updateProgressSteps();
+            
+            // Fill sample data for demo (remove in production)
+            fillSampleData();
+        });
+    </script>
+</body>
+</html>

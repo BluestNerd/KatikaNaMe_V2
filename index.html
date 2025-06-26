@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KatikaNaMe - Professional portfolio generator for African dancers. Create stunning digital portfolios in minutes with our easy-to-use platform.">
+    <meta name="keywords" content="dance portfolio, African dance, portfolio generator, Kenya dance, digital portfolio">
+    <meta name="author" content="KatikaNaMe">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://katikaname.com/">
+    <meta property="og:title" content="KatikaNaMe | African Dance Portfolio Generator">
+    <meta property="og:description" content="Create stunning digital portfolios in minutes. No design skills needed.">
+    <meta property="og:image" content="https://katikaname.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://katikaname.com/">
+    <meta property="twitter:title" content="KatikaNaMe | African Dance Portfolio Generator">
+    <meta property="twitter:description" content="Create stunning digital portfolios in minutes. No design skills needed.">
+    <meta property="twitter:image" content="https://katikaname.com/og-image.jpg">
+
+    <title>KatikaNaMe | African Dance Portfolio Generator</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>Katika</span><span class="highlight">NaMe</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="new_version.html">Portfolio Generator</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contracts.html">Contracts</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle between dark and light themes">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <a href="content/portfolio_gen.html" class="btn primary">Get Started</a>
+                <button class="hamburger" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>
+                    <span class="title-line">Showcase Your</span>
+                    <span class="title-line highlight">Dance Artistry</span>
+                </h1>
+                <p class="subtitle">Create stunning digital portfolios in minutes. No design skills needed. Built for African creatives, by African creatives.</p>
+                <div class="cta-buttons">
+                    <a href="content/portfolio_gen.html" class="btn primary">
+                        <i class="fas fa-magic" aria-hidden="true"></i>
+                        Generate Portfolio
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="content/contracts.html" class="btn secondary">
+                        <i class="fas fa-file-contract" aria-hidden="true"></i>
+                        Contract Tools
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2>Made for <span class="highlight">Dancers</span>, By Dancers</h2>
+                    <p class="subtitle">Everything you need to build a professional presence in the creative industry</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card animate-fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic" aria-hidden="true"></i>
+                        </div>
+                        <h3>One-Click Design</h3>
+                        <p>Beautiful templates that adapt to your style automatically. Choose from modern, classic, or artistic designs.</p>
+                    </div>
+                    <div class="feature-card animate-fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-contract" aria-hidden="true"></i>
+                        </div>
+                        <h3>Contract Protection</h3>
+                        <p>Professional contract templates and guidance to protect your rights and build your dance career safely.</p>
+                        <a href="content/contracts.html" class="btn small-outline">Explore Contracts</a>
+                    </div>
+                    <div class="feature-card animate-fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt" aria-hidden="true"></i>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Generate and publish your portfolio in under 5 minutes. Get both PDF downloads and live websites instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contracts Promo Section -->
+        <section class="contracts-promo">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">New Feature</span>
+                    <h2>Protect Your <span class="highlight">Artistry</span></h2>
+                    <p class="subtitle">Know your rights, understand contracts, and build your career with confidence</p>
+                </div>
+                <div class="contracts-grid">
+                    <div class="contract-card animate-slide-left">
+                        <div class="contract-icon">
+                            <i class="fas fa-file-signature" aria-hidden="true"></i>
+                        </div>
+                        <h3>Contract Templates</h3>
+                        <p>Professionally drafted contracts for performances, teaching, and collaborations. Customized for the Kenyan creative industry.</p>
+                    </div>
+                    <div class="contract-card animate-fade-in">
+                        <div class="contract-icon">
+                            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                        </div>
+                        <h3>Expert Guidance</h3>
+                        <p>Learn what to look for in dance contracts, understand your rights, and negotiate better deals for your work.</p>
+                    </div>
+                    <div class="contract-card animate-slide-right">
+                        <div class="contract-icon">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                        </div>
+                        <h3>Instant Downloads</h3>
+                        <p>Ready-to-use PDF contracts you can customize and use immediately. No legal fees, no waiting.</p>
+                    </div>
+                </div>
+                <div class="contracts-cta">
+                    <a href="content/contracts.html" class="btn primary">
+                        <i class="fas fa-file-contract" aria-hidden="true"></i>
+                        Explore Contract Tools
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Generator Preview -->
+        <section class="generator-preview">
+            <div class="container">
+                <div class="preview-content">
+                    <div class="section-header">
+                        <span class="section-label">How It Works</span>
+                        <h2>Your Perfect Portfolio <span class="highlight">In 3 Steps</span></h2>
+                    </div>
+                    <ol class="steps">
+                        <li class="animate-slide-left">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h3>Fill Your Details</h3>
+                                <p>Add your dance experience, skills, photos, and videos. Upload your best work to showcase your talent.</p>
+                            </div>
+                        </li>
+                        <li class="animate-slide-left">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h3>Choose Your Style</h3>
+                                <p>Select from our African-inspired designer templates. Customize colors to match your personal brand.</p>
+                            </div>
+                        </li>
+                        <li class="animate-slide-left">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h3>Publish & Share</h3>
+                                <p>Get a live website link and downloadable PDF. Share with clients, venues, and collaborators worldwide.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="preview-image animate-slide-right">
+                    <div class="mockup">
+                        <img src="example.png" alt="Portfolio preview showing a professional dance portfolio layout" loading="lazy">
+                        <div class="mockup-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>Katika</span><span class="highlight">NaMe</span>
+                </div>
+                <p>Empowering African dancers to showcase their talent worldwide. Join thousands of creatives building their digital presence with our platform.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Follow us on Instagram" title="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow us on TikTok" title="TikTok">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Subscribe to our YouTube channel" title="YouTube">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="content/portfolio_gen.html">Portfolio Generator</a>
+                    <a href="content/contracts.html">Contract Tools</a>
+                    <a href="content/careers.html">Opportunities</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="content/about.html">About</a>
+                    <a href="#" rel="noopener">Blog</a>
+                    <a href="content/careers.html">Careers</a>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="#" rel="noopener">Help Center</a>
+                    <a href="content/contact.html">Contact</a>
+                    <a href="#" rel="noopener">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KatikaNaMe. All rights reserved. Made with ❤️ in Kenya.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.dataset.theme = savedTheme;
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.dataset.theme;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-slide-left, .animate-slide-right').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Analytics tracking (placeholder)
+        function trackEvent(eventName, properties = {}) {
+            // Replace with your analytics service
+            console.log('Event tracked:', eventName, properties);
+        }
+
+        // Track CTA clicks
+        document.querySelectorAll('.btn.primary').forEach(btn => {
+            btn.addEventListener('click', () => {
+                trackEvent('cta_click', {
+                    button_text: btn.textContent.trim(),
+                    page: 'homepage'
+                });
+            });
+        });
+    </script>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "KatikaNaMe",
+        "description": "Professional portfolio generator for African dancers and creatives",
+        "url": "https://katikaname.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://katikaname.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "KatikaNaMe",
+            "url": "https://katikaname.com",
+            "sameAs": [
+                "https://instagram.com/katikaname",
+                "https://tiktok.com/@katikaname",
+                "https://youtube.com/@katikaname"
+            ]
+        }
+    }
+    </script>
+</body>
+</html>
