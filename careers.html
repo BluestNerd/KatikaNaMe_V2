@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover dance opportunities, competitions, and career development programs in Kenya and across Africa. Connect with the creative community.">
+    <meta name="keywords" content="dance opportunities Kenya, African dance competitions, dance careers, creative jobs Kenya, dance auditions">
+    <meta name="author" content="KatikaNaMe">
+    
+    <title>Dance Opportunities & Careers | KatikaNaMe</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>Katika</span><span class="highlight">NaMe</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="new_version.html">Portfolio Generator</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contracts.html">Contracts</a></li>
+                <li><a href="careers.html" class="active">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle between dark and light themes">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <a href="portfolio_gen.html" class="btn primary">Get Started</a>
+                <button class="hamburger" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Dance Opportunities in Africa</h1>
+            <p class="subtitle">Discover competitions, auditions, workshops, and career opportunities across the continent</p>
+        </div>
+        
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="typeFilter">Type:</label>
+                    <select id="typeFilter" class="styled-select">
+                        <option value="all">All Types</option>
+                        <option value="competition">Competitions</option>
+                        <option value="audition">Auditions</option>
+                        <option value="workshop">Workshops</option>
+                        <option value="job">Jobs</option>
+                        <option value="gig">Gigs</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="locationFilter">Location:</label>
+                    <select id="locationFilter" class="styled-select">
+                        <option value="all">All Locations</option>
+                        <option value="nairobi">Nairobi</option>
+                        <option value="mombasa">Mombasa</option>
+                        <option value="kisumu">Kisumu</option>
+                        <option value="online">Online</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Status:</label>
+                    <select id="statusFilter" class="styled-select">
+                        <option value="all">All</option>
+                        <option value="open">Open</option>
+                        <option value="closing-soon">Closing Soon</option>
+                        <option value="upcoming">Upcoming</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Events Section -->
+        <section class="featured-section">
+            <h2 class="section-title">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                Featured Events & Competitions
+            </h2>
+            <div class="opportunities-grid">
+                <!-- Red Bull Dance Your Style -->
+                <div class="opportunity-card featured" data-type="competition" data-location="nairobi" data-status="upcoming">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, #FF0000, #333);">
+                        <span class="opportunity-badge">Competition</span>
+                        <span class="featured-badge">Featured</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Red Bull Dance Your Style Kenya</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Nairobi, Kenya</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> October 15, 2025</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Africa's biggest street dance competition returns to Nairobi! 
+                            Showcase your unique style in this all-styles dance battle 
+                            where the crowd decides the winner. Open to all dance styles and levels.
+                        </p>
+                        <div class="opportunity-tags">
+                            <span class="tag">All Styles</span>
+                            <span class="tag">International</span>
+                            <span class="tag">Prize Money</span>
+                        </div>
+                        <a href="https://www.redbull.com/ke-en/events/red-bull-dance-your-style" target="_blank" rel="noopener" class="btn primary">
+                            <i class="fas fa-external-link-alt" aria-hidden="true"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kenya National Theatre Workshop -->
+                <div class="opportunity-card" data-type="workshop" data-location="nairobi" data-status="open">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <span class="opportunity-badge">Workshop</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Traditional Dance Masterclass</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Kenya National Theatre</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Every Saturday</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Learn authentic Kenyan traditional dances from master instructors. 
+                            Perfect for dancers looking to connect with their cultural roots 
+                            or add traditional elements to their repertoire.
+                        </p>
+                        <div class="opportunity-tags">
+                            <span class="tag">Traditional</span>
+                            <span class="tag">Cultural</span>
+                            <span class="tag">Beginner Friendly</span>
+                        </div>
+                        <a href="#" class="btn primary">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i> Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KatikaNaMe Productions -->
+        <section class="katika-productions">
+            <h2 class="section-title">
+                <i class="fas fa-play-circle" aria-hidden="true"></i>
+                KatikaNaMe Productions
+            </h2>
+            <div class="opportunities-grid">
+                <!-- Digital Dance Collective -->
+                <div class="opportunity-card katika-special" data-type="workshop" data-location="online" data-status="open">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">
+                        <span class="opportunity-badge">Training Program</span>
+                        <span class="katika-badge">KatikaNaMe Exclusive</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Digital Dance Collective</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Online + Physical Sessions</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Applications Always Open</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Year-long intensive program for dancers interested in learning how to develop 
+                            and manage personal web pages, automate their digital processes, and build 
+                            sustainable online presences. Limited slots available.
+                        </p>
+                        <div class="opportunity-features">
+                            <div class="feature-item">
+                                <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                                <span>Web Development Training</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <span>Digital Marketing</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-users" aria-hidden="true"></i>
+                                <span>Community Access</span>
+                            </div>
+                        </div>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-users" aria-hidden="true"></i> Limited Slots Opening Soon</span>
+                            <span><i class="fas fa-graduation-cap" aria-hidden="true"></i> All Levels Welcome</span>
+                        </div>
+                        <a href="contact.html" class="btn primary">
+                            <i class="fas fa-file-alt" aria-hidden="true"></i> Apply Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Placeholder -->
+                <div class="opportunity-card coming-soon" data-type="audition" data-location="nairobi" data-status="upcoming">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--text-gray), var(--dark-secondary));">
+                        <span class="opportunity-badge">Coming Soon</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">New Production Auditions</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Nairobi, Kenya</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Details Coming Soon</span>
+                        </div>
+                        <p class="opportunity-description">
+                            We're working on exciting new productions that will showcase the diversity 
+                            and talent of Kenyan dancers. Stay tuned for audition announcements and 
+                            be the first to know about upcoming opportunities.
+                        </p>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-info-circle" aria-hidden="true"></i> Details Coming Soon</span>
+                            <span><i class="fas fa-bell" aria-hidden="true"></i> Get Notified</span>
+                        </div>
+                        <a href="contact.html" class="btn secondary">
+                            <i class="fas fa-bell" aria-hidden="true"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- General Opportunities -->
+        <section class="general-opportunities">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                Jobs & Gig Opportunities
+            </h2>
+            <div class="opportunities-grid">
+                <!-- Dance Instructor Position -->
+                <div class="opportunity-card" data-type="job" data-location="nairobi" data-status="open">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--success), #059669);">
+                        <span class="opportunity-badge">Job Opening</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Dance Instructor - Youth Program</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Kibera, Nairobi</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Full-time Position</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Community arts organization seeks passionate dance instructor for youth 
+                            outreach program. Teach hip-hop, contemporary, and traditional styles 
+                            to children and teenagers from the community.
+                        </p>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-money-bill-wave" aria-hidden="true"></i> KES 35,000 - 50,000/month</span>
+                            <span><i class="fas fa-heart" aria-hidden="true"></i> Social Impact</span>
+                        </div>
+                        <a href="contact.html" class="btn primary">
+                            <i class="fas fa-envelope" aria-hidden="true"></i> Apply Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Music Video Casting -->
+                <div class="opportunity-card" data-type="gig" data-location="nairobi" data-status="closing-soon">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--warning), #d97706);">
+                        <span class="opportunity-badge">Gig</span>
+                        <span class="urgent-badge">Closing Soon</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Music Video Dancers Needed</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Studio, Westlands</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Shoot: March 15-16</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Popular Kenyan artist looking for 8 backup dancers for upcoming music 
+                            video. Afrobeat and contemporary styles preferred. Must be available 
+                            for 2 days of shooting.
+                        </p>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-money-bill-wave" aria-hidden="true"></i> KES 8,000 per day</span>
+                            <span><i class="fas fa-video" aria-hidden="true"></i> Portfolio Opportunity</span>
+                        </div>
+                        <a href="contact.html" class="btn primary">
+                            <i class="fas fa-video" aria-hidden="true"></i> Submit Application
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Festival Performance -->
+                <div class="opportunity-card" data-type="gig" data-location="mombasa" data-status="open">
+                    <div class="opportunity-image" style="background: linear-gradient(135deg, var(--accent), #f2c624);">
+                        <span class="opportunity-badge">Performance</span>
+                    </div>
+                    <div class="opportunity-content">
+                        <h3 class="opportunity-title">Coastal Arts Festival Performers</h3>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Mombasa Cultural Centre</span>
+                            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> July 20-22, 2025</span>
+                        </div>
+                        <p class="opportunity-description">
+                            Annual coastal arts festival seeking diverse dance performances. 
+                            Solo acts, groups, and cultural ensembles welcome. Great exposure 
+                            to international tourists and local audiences.
+                        </p>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-money-bill-wave" aria-hidden="true"></i> KES 15,000 per performance</span>
+                            <span><i class="fas fa-globe" aria-hidden="true"></i> International Exposure</span>
+                        </div>
+                        <a href="contact.html" class="btn primary">
+                            <i class="fas fa-music" aria-hidden="true"></i> Apply to Perform
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Opportunity Section -->
+        <section class="submit-opportunity">
+            <div class="submit-content">
+                <h2 class="section-title">
+                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                    Share an Opportunity
+                </h2>
+                <p>
+                    Have a dance-related event, audition, or job opportunity you'd like to share with 
+                    Kenya's creative community? List it here for free and reach thousands of talented dancers.
+                </p>
+                <div class="submit-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>Reach 1000+ dancers</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <span>Featured listings available</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-free-code-camp" aria-hidden="true"></i>
+                        <span>Free to post</span>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn primary">
+                    <i class="fas fa-plus-circle" aria-hidden="true"></i> Submit Opportunity
+                </a>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="resources-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                Career Development Resources
+            </h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                    </div>
+                    <h3>Skills Development</h3>
+                    <p>Free online courses and workshops to improve your dance technique and business skills.</p>
+                    <a href="#" class="btn small-outline">Explore Courses</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-network-wired" aria-hidden="true"></i>
+                    </div>
+                    <h3>Networking Events</h3>
+                    <p>Connect with other dancers, choreographers, and industry professionals in your area.</p>
+                    <a href="#" class="btn small-outline">Find Events</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                    </div>
+                    <h3>Funding Opportunities</h3>
+                    <p>Grants, scholarships, and funding sources specifically for African creative professionals.</p>
+                    <a href="#" class="btn small-outline">View Funding</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-contract" aria-hidden="true"></i>
+                    </div>
+                    <h3>Contract Help</h3>
+                    <p>Templates and guidance for negotiating fair contracts and protecting your rights.</p>
+                    <a href="contracts.html" class="btn small-outline">Get Templates</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>Katika</span><span class="highlight">NaMe</span>
+                </div>
+                <p>Empowering African dancers to showcase their talent worldwide. Join thousands of creatives building their digital presence with our platform.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Follow us on Instagram" title="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Follow us on TikTok" title="TikTok">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" aria-label="Subscribe to our YouTube channel" title="YouTube">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="portfolio_gen.html">Portfolio Generator</a>
+                    <a href="contracts.html">Contract Tools</a>
+                    <a href="careers.html">Opportunities</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="#" rel="noopener">Blog</a>
+                    <a href="careers.html">Careers</a>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="#" rel="noopener">Help Center</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="#" rel="noopener">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KatikaNaMe. All rights reserved. Made with ❤️ in Kenya.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.dataset.theme = savedTheme;
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.dataset.theme;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Filtering functionality
+        const typeFilter = document.getElementById('typeFilter');
+        const locationFilter = document.getElementById('locationFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const opportunityCards = document.querySelectorAll('.opportunity-card');
+
+        function filterOpportunities() {
+            const typeValue = typeFilter.value;
+            const locationValue = locationFilter.value;
+            const statusValue = statusFilter.value;
+
+            opportunityCards.forEach(card => {
+                const cardType = card.dataset.type;
+                const cardLocation = card.dataset.location;
+                const cardStatus = card.dataset.status;
+
+                const typeMatch = typeValue === 'all' || cardType === typeValue;
+                const locationMatch = locationValue === 'all' || cardLocation === locationValue;
+                const statusMatch = statusValue === 'all' || cardStatus === statusValue;
+
+                if (typeMatch && locationMatch && statusMatch) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.3s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show "no results" message if no cards are visible
+            const visibleCards = Array.from(opportunityCards).filter(card => card.style.display !== 'none');
+            updateNoResultsMessage(visibleCards.length === 0);
+        }
+
+        function updateNoResultsMessage(show) {
+            let noResultsMsg = document.querySelector('.no-results-message');
+            
+            if (show && !noResultsMsg) {
+                noResultsMsg = document.createElement('div');
+                noResultsMsg.className = 'no-results-message';
+                noResultsMsg.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3>No opportunities found</h3>
+                        <p>Try adjusting your filters or check back later for new listings.</p>
+                    </div>
+                `;
+                document.querySelector('.general-opportunities .opportunities-grid').appendChild(noResultsMsg);
+            } else if (!show && noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+
+        // Add event listeners to filters
+        typeFilter.addEventListener('change', filterOpportunities);
+        locationFilter.addEventListener('change', filterOpportunities);
+        statusFilter.addEventListener('change', filterOpportunities);
+
+        // Animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe opportunity cards for entrance animation
+        opportunityCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Track opportunity interactions
+        opportunityCards.forEach(card => {
+            const title = card.querySelector('.opportunity-title').textContent;
+            const type = card.dataset.type;
+            
+            card.addEventListener('click', (e) => {
+                // Don't track if clicking on a button/link
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+                
+                console.log('Opportunity viewed:', { title, type });
+            });
+        });
+    </script>
+
+    <!-- Career page specific styles -->
+    <style>
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+        }
+
+        .filters-section {
+            background: rgba(26, 26, 36, 0.8);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .katika-badge {
+            position: absolute;
+            bottom: var(--space-sm);
+            left: var(--space-sm);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .urgent-badge {
+            position: absolute;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            background: var(--error);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        .opportunity-tags {
+            display: flex;
+            gap: var(--space-xs);
+            margin: var(--space-md) 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(176, 38, 255, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .opportunity-features {
+            display: grid;
+            gap: var(--space-xs);
+            margin: var(--space-md) 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--primary);
+            width: 16px;
+        }
+
+        .katika-special {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(176, 38, 255, 0.3);
+        }
+
+        .coming-soon {
+            opacity: 0.7;
+        }
+
+        .submit-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .submit-benefits {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--primary);
+        }
+
+        .benefit-item i {
+            font-size: 1.5rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .resource-card {
+            background: rgba(26, 26, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid rgba(176, 38, 255, 0.2);
+            transition: all var(--transition-normal);
+            text-align: center;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(176, 38, 255, 0.2);
+            border-radius: var(--border-radius);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .submit-benefits {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</body>
+</html>
