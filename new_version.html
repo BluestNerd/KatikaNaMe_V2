@@ -1166,26 +1166,30 @@
 
         // Form Data Collection
         function collectFormData() {
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                title: document.getElementById('title').value,
-                category: document.getElementById('category').value,
-                experience: document.getElementById('experience').value,
-                location: document.getElementById('location').value,
-                aboutMe: document.getElementById('aboutMe').value,
-                jobs: document.getElementById('jobs').value,
-                services: document.getElementById('services').value,
-                testimonials: document.getElementById('testimonials').value,
-                skills: document.getElementById('skills').value,
-                phone: document.getElementById('phone').value,
-                instagram: document.getElementById('instagram').value,
-                youtube: document.getElementById('youtube').value,
-                tiktok: document.getElementById('tiktok').value,
-                facebook: document.getElementById('facebook').value,
-                twitter: document.getElementById('twitter').value,
-                website: document.getElementById('website').value
-            };
+  return {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    title: document.getElementById('title').value,
+    category: document.getElementById('category').value,
+    experience: document.getElementById('experience').value,
+    location: document.getElementById('location').value,
+    aboutMe: document.getElementById('aboutMe').value,
+    jobs: document.getElementById('jobs').value,
+    services: document.getElementById('services').value,
+    testimonials: document.getElementById('testimonials').value,
+    skills: document.getElementById('skills').value,
+    phone: document.getElementById('phone').value,
+    instagram: document.getElementById('instagram').value,
+    youtube: document.getElementById('youtube').value,
+    tiktok: document.getElementById('tiktok').value,
+    facebook: document.getElementById('facebook').value,
+    twitter: document.getElementById('twitter').value,
+    website: document.getElementById('website').value
+  };
+}
+
+// Remove file upload functionality or handle it differently
+// For now, we'll skip file uploads in serverless version
             
             // Parse location
             if (formData.location) {
