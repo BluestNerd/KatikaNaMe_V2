@@ -1,756 +1,625 @@
-// ===== SERVER.JS - COMPLETE BACKEND FOR KATIKANAME =====
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+const pdf = require('html-pdf');
+const fs = require('fs-extra');
 const path = require('path');
-const fs = require('fs');
-const PDFDocument = require('pdfkit');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ===== MIDDLEWARE =====
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" }
-}));
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
 
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:8080', 'http://127.0.0.1:8080', 'http://localhost:5500'],
-  credentials: true
-}));
+// Ensure directories exist
+const ensureDirectories = () => {
+  const dirs = [
+    'uploads/images',
+    'uploads/videos',
+    'uploads/pdfs',
+    'generated/portfolios',
+    'generated/pdfs',
+    'data'
+  ];
+  
+  dirs.forEach(dir => {
+    fs.ensureDirSync(dir);
+  });
+};
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+ensureDirectories();
 
-// Rate limiting
-const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  message: { error: 'Too many requests, please try again later.' }
-});
+// In-memory storage (replace with database in production)
+let artists = [];
+let portfolios = [];
 
-const uploadLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 10,
-  message: { error: 'Too many upload requests, please slow down.' }
-});
-
-app.use('/api/', generalLimiter);
-
-// ===== DATABASE MODELS =====
-
-// Artist Schema
-const artistSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  bio: { type: String, required: true },
-  category: { 
-    type: String, 
-    required: true,
-    enum: ['dancer', 'musician', 'visual_artist', 'multi_disciplinary']
-  },
-  experience: {
-    type: String,
-    required: true,
-    enum: ['beginner', 'intermediate', 'advanced', 'professional']
-  },
-  genres: [String],
-  location: {
-    city: String,
-    country: String
-  },
-  socialLinks: {
-    instagram: String,
-    youtube: String,
-    tiktok: String,
-    facebook: String,
-    twitter: String,
-    website: String
-  },
-  media: [{
-    filename: String,
-    originalName: String,
-    url: String,
-    type: String,
-    uploadedAt: { type: Date, default: Date.now }
-  }],
-  portfolio: { type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio' },
-  isActive: { type: Boolean, default: true },
-  isVerified: { type: Boolean, default: false },
-  views: { type: Number, default: 0 },
-  rating: {
-    average: { type: Number, default: 0 },
-    count: { type: Number, default: 0 }
-  }
-}, {
-  timestamps: true
-});
-
-// Portfolio Schema
-const portfolioSchema = new mongoose.Schema({
-  artist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artist', required: true },
-  title: { type: String, required: true },
-  description: String,
-  template: { 
-    type: String, 
-    enum: ['modern', 'classic', 'artistic'],
-    default: 'modern'
-  },
-  sections: [{
-    type: { type: String, required: true },
-    title: String,
-    content: String,
-    media: [String],
-    order: Number
-  }],
-  customizations: {
-    colors: {
-      primary: { type: String, default: '#B026FF' },
-      secondary: { type: String, default: '#ffffff' },
-      accent: { type: String, default: '#FFD23F' }
-    },
-    fonts: {
-      heading: { type: String, default: 'Montserrat' },
-      body: { type: String, default: 'Poppins' }
-    },
-    layout: { type: String, default: 'grid' }
-  },
-  generatedFiles: [{
-    format: String,
-    filename: String,
-    url: String,
-    generatedAt: { type: Date, default: Date.now }
-  }],
-  isPublic: { type: Boolean, default: true },
-  views: { type: Number, default: 0 }
-}, {
-  timestamps: true
-});
-
-const Artist = mongoose.model('Artist', artistSchema);
-const Portfolio = mongoose.model('Portfolio', portfolioSchema);
-
-// ===== FILE UPLOAD CONFIGURATION =====
+// Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, 'uploads', 'artists');
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
+    let uploadPath = 'uploads/';
+    if (file.mimetype.startsWith('image/')) {
+      uploadPath += 'images/';
+    } else if (file.mimetype.startsWith('video/')) {
+      uploadPath += 'videos/';
+    } else {
+      uploadPath += 'pdfs/';
     }
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    const uniqueName = `${uuidv4()}-${file.originalname}`;
+    cb(null, uniqueName);
   }
 });
-
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'application/pdf'];
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('Invalid file type. Only images, videos, and PDFs are allowed.'), false);
-  }
-};
 
 const upload = multer({
-  storage,
-  fileFilter,
+  storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB
-    files: 10 // Max 10 files
+    fileSize: 10 * 1024 * 1024 // 10MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/') || 
+        file.mimetype.startsWith('video/') || 
+        file.mimetype === 'application/pdf') {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only images, videos, and PDFs are allowed.'));
+    }
   }
 });
 
-// ===== ROUTES =====
+// Utility function to generate portfolio HTML
+function generatePortfolioHTML(data, template, customizations = {}) {
+  const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills || '').split(',').map(s => s.trim());
+  const year = new Date().getFullYear();
+  
+  const colors = customizations.colors || {
+    primary: '#B026FF',
+    accent: '#FFD23F',
+    background: '#0a0a12'
+  };
 
-// Health check
-app.get('/health', async (req, res) => {
-  try {
-    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
-    const artistCount = await Artist.countDocuments({ isActive: true });
-    const portfolioCount = await Portfolio.countDocuments();
-    
-    res.json({
-      status: 'OK',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      database: { status: dbStatus, artists: artistCount, portfolios: portfolioCount },
-      memory: {
-        used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + ' MB',
-        total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + ' MB'
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ status: 'ERROR', message: error.message });
+  let html = '';
+  
+  switch(template) {
+    case 'modern':
+      html = generateModernTemplate(data, skillsList, colors);
+      break;
+    case 'classic':
+      html = generateClassicTemplate(data, skillsList, colors);
+      break;
+    case 'artistic':
+      html = generateArtisticTemplate(data, skillsList, colors);
+      break;
+    default:
+      html = generateModernTemplate(data, skillsList, colors);
   }
-});
 
-// ===== ARTIST ROUTES =====
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${data.name} - ${data.title}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: ${colors.primary};
+            --accent: ${colors.accent};
+            --background: ${colors.background};
+            --light: #f5f5f7;
+            --text-gray: #a1a1a6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent);
+            margin-bottom: 2rem;
+        }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; }
+        h2 { color: var(--accent); margin: 2rem 0 1rem; }
+        section { padding: 2rem 0; }
+        .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .social-links { display: flex; gap: 15px; margin-top: 1rem; }
+        .social-links a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        footer { text-align: center; padding: 2rem 0; color: var(--text-gray); }
+        .section-content { white-space: pre-line; }
+    </style>
+</head>
+<body>
+    ${html}
+</body>
+</html>`;
+}
 
-// Create artist
-app.post('/api/artists', uploadLimiter, upload.array('files', 10), async (req, res) => {
+function generateModernTemplate(data, skillsList, colors) {
+  return `
+    <header>
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="${data.name}" class="profile-img">
+            <h1>${data.name}</h1>
+            <h3>${data.title}</h3>
+            <p>${data.experience} • ${data.location || 'Creative Professional'}</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>About Me</h2>
+            <div class="section-content">${data.aboutMe}</div>
+        </section>
+
+        ${data.jobs ? `
+        <section>
+            <h2>Experience</h2>
+            <div class="section-content">${data.jobs}</div>
+        </section>
+        ` : ''}
+
+        <section>
+            <h2>Skills</h2>
+            <div class="skills">
+                ${skillsList.map(skill => `<span class="skill">${skill}</span>`).join('')}
+            </div>
+        </section>
+
+        ${data.services ? `
+        <section>
+            <h2>Services</h2>
+            <div class="section-content">${data.services}</div>
+        </section>
+        ` : ''}
+
+        ${data.testimonials ? `
+        <section>
+            <h2>Testimonials</h2>
+            <div class="section-content" style="font-style: italic;">${data.testimonials}</div>
+        </section>
+        ` : ''}
+
+        <section>
+            <h2>Connect With Me</h2>
+            <div class="social-links">
+                ${data.instagram ? `<a href="${data.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                ${data.youtube ? `<a href="${data.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
+                ${data.tiktok ? `<a href="${data.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                ${data.facebook ? `<a href="${data.facebook}" target="_blank"><i class="fab fa-facebook"></i></a>` : ''}
+                ${data.twitter ? `<a href="${data.twitter}" target="_blank"><i class="fab fa-twitter"></i></a>` : ''}
+                ${data.website ? `<a href="${data.website}" target="_blank"><i class="fas fa-globe"></i></a>` : ''}
+            </div>
+            <div style="margin-top: 1rem;">
+                <p>Email: <a href="mailto:${data.email}" style="color: var(--accent);">${data.email}</a></p>
+                ${data.phone ? `<p>Phone: ${data.phone}</p>` : ''}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; ${new Date().getFullYear()} ${data.name}. All rights reserved.</p>
+    </footer>`;
+}
+
+function generateClassicTemplate(data, skillsList, colors) {
+  return `
+    <div class="container">
+        <header style="background: none; color: inherit; padding: 2rem 0; text-align: left; border-bottom: 2px solid var(--primary);">
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                     alt="${data.name}" 
+                     style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary);">
+                <div>
+                    <h1 style="margin-bottom: 0.5rem;">${data.name}</h1>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">${data.title}</h3>
+                    <p>${data.location || ''}</p>
+                </div>
+            </div>
+        </header>
+
+        <main style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-top: 2rem;">
+            <div>
+                <section>
+                    <h2>About Me</h2>
+                    <div class="section-content">${data.aboutMe}</div>
+                </section>
+
+                ${data.jobs ? `
+                <section>
+                    <h2>Experience</h2>
+                    <div class="section-content">${data.jobs}</div>
+                </section>
+                ` : ''}
+
+                ${data.services ? `
+                <section>
+                    <h2>Services</h2>
+                    <div class="section-content">${data.services}</div>
+                </section>
+                ` : ''}
+            </div>
+
+            <div>
+                <section>
+                    <h2>Contact</h2>
+                    <p><strong>Email:</strong><br><a href="mailto:${data.email}" style="color: var(--accent);">${data.email}</a></p>
+                    ${data.phone ? `<p><strong>Phone:</strong><br>${data.phone}</p>` : ''}
+                    
+                    <div style="margin-top: 1rem;">
+                        <h3>Social Links</h3>
+                        <div class="social-links">
+                            ${data.instagram ? `<a href="${data.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                            ${data.youtube ? `<a href="${data.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
+                            ${data.tiktok ? `<a href="${data.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Skills</h2>
+                    <div class="skills">
+                        ${skillsList.map(skill => `<span class="skill">${skill}</span>`).join('')}
+                    </div>
+                </section>
+
+                ${data.testimonials ? `
+                <section>
+                    <h2>Testimonials</h2>
+                    <div class="section-content" style="font-size: 0.9rem; font-style: italic;">${data.testimonials}</div>
+                </section>
+                ` : ''}
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; ${new Date().getFullYear()} ${data.name}. All rights reserved.</p>
+    </footer>`;
+}
+
+function generateArtisticTemplate(data, skillsList, colors) {
+  return `
+    <header style="background: linear-gradient(135deg, ${colors.primary}, #540d6e, ${colors.accent}); background-size: 400% 400%; animation: gradient 15s ease infinite; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+        <style>
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+        </style>
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                 alt="${data.name}" 
+                 class="profile-img"
+                 style="border: 5px solid ${colors.accent}; box-shadow: 0 0 30px rgba(255, 210, 63, 0.5);">
+            <h1 style="font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">${data.name}</h1>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">${data.title}</h3>
+            <p style="font-size: 1.1rem;">${data.experience} Artist • ${data.location || 'Creative Visionary'}</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section style="text-align: center; padding: 4rem 0;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">My Artistic Journey</h2>
+            <div class="section-content" style="font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                ${data.aboutMe}
+            </div>
+        </section>
+
+        ${data.jobs ? `
+        <section style="background: rgba(176, 38, 255, 0.1); padding: 3rem; border-radius: 20px; margin: 2rem 0;">
+            <h2 style="text-align: center; font-size: 2rem;">Performance History</h2>
+            <div class="section-content" style="font-size: 1.1rem;">${data.jobs}</div>
+        </section>
+        ` : ''}
+
+        <section style="text-align: center;">
+            <h2 style="font-size: 2rem;">Artistic Skills</h2>
+            <div class="skills" style="justify-content: center; margin-top: 2rem;">
+                ${skillsList.map(skill => `<span class="skill" style="background: linear-gradient(135deg, ${colors.primary}, ${colors.accent}); font-size: 1rem; padding: 0.75rem 1.5rem;">${skill}</span>`).join('')}
+            </div>
+        </section>
+
+        ${data.testimonials ? `
+        <section style="text-align: center; padding: 4rem 0;">
+            <h2 style="font-size: 2rem;">Voices of Appreciation</h2>
+            <div class="section-content" style="font-style: italic; font-size: 1.1rem; max-width: 800px; margin: 0 auto; background: rgba(255, 210, 63, 0.1); padding: 2rem; border-radius: 15px;">
+                ${data.testimonials}
+            </div>
+        </section>
+        ` : ''}
+
+        <section style="text-align: center; padding: 3rem 0;">
+            <h2 style="font-size: 2rem;">Let's Create Together</h2>
+            <div class="social-links" style="justify-content: center; margin: 2rem 0;">
+                ${data.instagram ? `<a href="${data.instagram}" target="_blank" style="font-size: 2rem; margin: 0 1rem;"><i class="fab fa-instagram"></i></a>` : ''}
+                ${data.youtube ? `<a href="${data.youtube}" target="_blank" style="font-size: 2rem; margin: 0 1rem;"><i class="fab fa-youtube"></i></a>` : ''}
+                ${data.tiktok ? `<a href="${data.tiktok}" target="_blank" style="font-size: 2rem; margin: 0 1rem;"><i class="fab fa-tiktok"></i></a>` : ''}
+            </div>
+            <div>
+                <p style="font-size: 1.1rem;">Email: <a href="mailto:${data.email}" style="color: var(--accent); font-weight: bold;">${data.email}</a></p>
+                ${data.phone ? `<p style="font-size: 1.1rem;">Phone: ${data.phone}</p>` : ''}
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: rgba(10, 10, 18, 0.8); padding: 2rem 0;">
+        <p>&copy; ${new Date().getFullYear()} ${data.name}. All artistic rights reserved.</p>
+    </footer>`;
+}
+
+// Routes
+
+// Create artist profile
+app.post('/api/artists', upload.array('files', 10), async (req, res) => {
   try {
     const {
-      name, email, bio, category, experience, genres, location, socialLinks
-    } = req.body;
-
-    // Parse JSON fields
-    const parsedGenres = typeof genres === 'string' ? JSON.parse(genres) : genres;
-    const parsedLocation = typeof location === 'string' ? JSON.parse(location) : location;
-    const parsedSocialLinks = typeof socialLinks === 'string' ? JSON.parse(socialLinks) : socialLinks;
-
-    // Process uploaded files
-    const media = req.files?.map(file => ({
-      filename: file.filename,
-      originalName: file.originalname,
-      url: `/uploads/artists/${file.filename}`,
-      type: file.mimetype
-    })) || [];
-
-    const artist = new Artist({
       name,
       email,
       bio,
       category,
       experience,
-      genres: parsedGenres,
-      location: parsedLocation,
-      socialLinks: parsedSocialLinks,
-      media
-    });
+      genres,
+      location,
+      socialLinks
+    } = req.body;
 
-    await artist.save();
+    // Validate required fields
+    if (!name || !email) {
+      return res.status(400).json({ error: 'Name and email are required' });
+    }
+
+    const artist = {
+      id: uuidv4(),
+      name,
+      email,
+      bio: bio || '',
+      category: category || 'multi_disciplinary',
+      experience: experience || 'beginner',
+      genres: genres ? JSON.parse(genres) : [],
+      location: location ? JSON.parse(location) : {},
+      socialLinks: socialLinks ? JSON.parse(socialLinks) : {},
+      files: req.files ? req.files.map(file => ({
+        filename: file.filename,
+        originalName: file.originalname,
+        path: file.path,
+        mimetype: file.mimetype
+      })) : [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    artists.push(artist);
+    
+    // Save to file (in production, use database)
+    await fs.writeJson('data/artists.json', artists);
 
     res.status(201).json({
-      message: 'Artist created successfully',
-      artist: {
-        ...artist.toObject(),
-        email: undefined // Don't return email in response
-      }
+      message: 'Artist profile created successfully',
+      artist
     });
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ error: 'Email already exists' });
-    }
-    res.status(500).json({ error: error.message });
+    console.error('Error creating artist:', error);
+    res.status(500).json({ error: 'Failed to create artist profile' });
   }
 });
 
-// Get all artists (public directory)
-app.get('/api/artists', async (req, res) => {
-  try {
-    const { category, location, limit = 20, page = 1 } = req.query;
-    
-    const filter = { isActive: true };
-    if (category) filter.category = category;
-    if (location) {
-      filter.$or = [
-        { 'location.city': new RegExp(location, 'i') },
-        { 'location.country': new RegExp(location, 'i') }
-      ];
-    }
-
-    const artists = await Artist.find(filter)
-      .select('-email')
-      .populate('portfolio', 'title views')
-      .sort({ views: -1, createdAt: -1 })
-      .limit(parseInt(limit))
-      .skip((page - 1) * limit);
-
-    const total = await Artist.countDocuments(filter);
-
-    res.json({
-      artists,
-      pagination: {
-        current: parseInt(page),
-        total: Math.ceil(total / limit),
-        hasNext: page * limit < total
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// Get all artists
+app.get('/api/artists', (req, res) => {
+  res.json(artists);
 });
 
-// Get single artist
-app.get('/api/artists/:id', async (req, res) => {
-  try {
-    const artist = await Artist.findById(req.params.id)
-      .select('-email')
-      .populate('portfolio');
-    
-    if (!artist) {
-      return res.status(404).json({ error: 'Artist not found' });
-    }
-
-    // Increment views
-    artist.views += 1;
-    await artist.save();
-
-    res.json({ artist });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+// Get artist by ID
+app.get('/api/artists/:id', (req, res) => {
+  const artist = artists.find(a => a.id === req.params.id);
+  if (!artist) {
+    return res.status(404).json({ error: 'Artist not found' });
   }
+  res.json(artist);
 });
-
-// ===== PORTFOLIO ROUTES =====
 
 // Create portfolio
 app.post('/api/portfolios', async (req, res) => {
   try {
-    const { artistId, template, title, description, sections, customizations } = req.body;
+    const {
+      artistId,
+      template,
+      title,
+      description,
+      sections,
+      customizations
+    } = req.body;
 
-    const artist = await Artist.findById(artistId);
+    const artist = artists.find(a => a.id === artistId);
     if (!artist) {
       return res.status(404).json({ error: 'Artist not found' });
     }
 
-    const portfolio = new Portfolio({
-      artist: artistId,
+    const portfolio = {
+      id: uuidv4(),
+      artistId,
       template: template || 'modern',
-      title,
-      description,
+      title: title || `${artist.name} Portfolio`,
+      description: description || artist.bio,
       sections: sections || [],
-      customizations: {
-        colors: customizations?.colors || {
-          primary: '#B026FF',
-          secondary: '#ffffff',
-          accent: '#FFD23F'
-        },
-        fonts: customizations?.fonts || {
-          heading: 'Montserrat',
-          body: 'Poppins'
-        },
-        layout: customizations?.layout || 'grid'
-      }
-    });
+      customizations: customizations || {},
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
 
-    await portfolio.save();
+    portfolios.push(portfolio);
+    
+    // Save to file
+    await fs.writeJson('data/portfolios.json', portfolios);
 
-    // Update artist with portfolio reference
-    artist.portfolio = portfolio._id;
-    await artist.save();
+    // Generate HTML file
+    const htmlContent = generatePortfolioHTML(
+      {
+        ...artist,
+        ...portfolio,
+        skills: artist.genres
+      },
+      portfolio.template,
+      portfolio.customizations
+    );
+
+    const htmlFilePath = path.join('generated/portfolios', `${portfolio.id}.html`);
+    await fs.writeFile(htmlFilePath, htmlContent);
+
+    portfolio.htmlUrl = `/portfolios/${portfolio.id}.html`;
 
     res.status(201).json({
       message: 'Portfolio created successfully',
-      portfolio: await portfolio.populate('artist', 'name email category experience')
+      portfolio
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating portfolio:', error);
+    res.status(500).json({ error: 'Failed to create portfolio' });
   }
 });
 
-// Generate PDF portfolio
-app.post('/api/portfolios/:id/generate-pdf', uploadLimiter, async (req, res) => {
+// Generate PDF
+app.post('/api/portfolios/:id/generate-pdf', async (req, res) => {
   try {
-    const portfolio = await Portfolio.findById(req.params.id).populate('artist');
-    
+    const portfolio = portfolios.find(p => p.id === req.params.id);
     if (!portfolio) {
       return res.status(404).json({ error: 'Portfolio not found' });
     }
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(__dirname, 'uploads', 'portfolios');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    const artist = artists.find(a => a.id === portfolio.artistId);
+    if (!artist) {
+      return res.status(404).json({ error: 'Artist not found' });
     }
 
-    const filename = `portfolio-${portfolio._id}-${Date.now()}.pdf`;
-    const filepath = path.join(uploadsDir, filename);
+    const htmlContent = generatePortfolioHTML(
+      {
+        ...artist,
+        ...portfolio,
+        skills: artist.genres
+      },
+      portfolio.template,
+      portfolio.customizations
+    );
 
-    // Create PDF document
-    const doc = new PDFDocument({
-      margin: 50,
-      size: 'A4',
-      info: {
-        Title: portfolio.title,
-        Author: portfolio.artist.name,
-        Subject: 'Professional Portfolio'
+    const pdfOptions = {
+      format: 'A4',
+      border: {
+        top: '0.5in',
+        right: '0.5in',
+        bottom: '0.5in',
+        left: '0.5in'
       }
-    });
-
-    doc.pipe(fs.createWriteStream(filepath));
-
-    // Helper function to convert hex to RGB
-    function hexToRgb(hex) {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : { r: 176, g: 38, b: 255 };
-    }
-
-    const colors = portfolio.customizations?.colors || {
-      primary: '#B026FF',
-      accent: '#FFD23F'
     };
 
-    const primaryRgb = hexToRgb(colors.primary);
-    const accentRgb = hexToRgb(colors.accent);
+    const pdfFilePath = path.join('generated/pdfs', `${portfolio.id}.pdf`);
 
-    // Cover Page
-    doc.rect(0, 0, doc.page.width, 200)
-       .fill([primaryRgb.r, primaryRgb.g, primaryRgb.b]);
-
-    // Artist name
-    doc.fontSize(32)
-       .fillColor('white')
-       .text(portfolio.artist.name, 50, 80, { align: 'center' });
-
-    doc.fontSize(18)
-       .text(portfolio.artist.category?.replace('_', ' ').toUpperCase() || 'CREATIVE PROFESSIONAL', 50, 120, { align: 'center' });
-
-    doc.fontSize(14)
-       .text(`${portfolio.artist.experience?.toUpperCase()} LEVEL`, 50, 145, { align: 'center' });
-
-    // Decorative line
-    doc.rect(50, 180, doc.page.width - 100, 3)
-       .fill([accentRgb.r, accentRgb.g, accentRgb.b]);
-
-    // Portfolio title
-    doc.fontSize(24)
-       .fillColor([primaryRgb.r, primaryRgb.g, primaryRgb.b])
-       .text(portfolio.title, 50, 220)
-       .moveDown();
-
-    if (portfolio.description) {
-      doc.fontSize(12)
-         .fillColor('#333333')
-         .text(portfolio.description, 50, doc.y, { 
-           align: 'justify',
-           width: doc.page.width - 100
-         })
-         .moveDown(2);
-    }
-
-    // About section
-    if (portfolio.artist.bio) {
-      doc.addPage();
-      
-      doc.rect(50, 50, doc.page.width - 100, 40)
-         .fill([accentRgb.r, accentRgb.g, accentRgb.b]);
-      
-      doc.fontSize(18)
-         .fillColor('white')
-         .text('ABOUT THE ARTIST', 60, 65);
-
-      doc.fontSize(12)
-         .fillColor('#333333')
-         .text(portfolio.artist.bio, 50, 110, {
-           align: 'justify',
-           width: doc.page.width - 100
-         });
-    }
-
-    // Portfolio sections
-    portfolio.sections.forEach((section) => {
-      doc.addPage();
-      
-      doc.rect(50, 50, doc.page.width - 100, 40)
-         .fill([accentRgb.r, accentRgb.g, accentRgb.b]);
-      
-      doc.fontSize(18)
-         .fillColor('white')
-         .text((section.title || section.type).toUpperCase(), 60, 65);
-
-      if (section.content) {
-        doc.fontSize(12)
-           .fillColor('#333333')
-           .text(section.content, 50, 110, {
-             align: 'justify',
-             width: doc.page.width - 100
-           });
-      }
+    await new Promise((resolve, reject) => {
+      pdf.create(htmlContent, pdfOptions).toFile(pdfFilePath, (err, res) => {
+        if (err) reject(err);
+        else resolve(res);
+      });
     });
 
-    // Skills page
-    if (portfolio.artist.genres && portfolio.artist.genres.length > 0) {
-      doc.addPage();
-      
-      doc.rect(50, 50, doc.page.width - 100, 40)
-         .fill([accentRgb.r, accentRgb.g, accentRgb.b]);
-      
-      doc.fontSize(18)
-         .fillColor('white')
-         .text('SKILLS & SPECIALTIES', 60, 65);
-
-      let skillY = 120;
-      let skillX = 50;
-      
-      portfolio.artist.genres.forEach((genre) => {
-        const skillWidth = doc.widthOfString(genre) + 20;
-        
-        if (skillX + skillWidth > doc.page.width - 50) {
-          skillX = 50;
-          skillY += 35;
-        }
-        
-        doc.rect(skillX, skillY, skillWidth, 25)
-           .fill([primaryRgb.r, primaryRgb.g, primaryRgb.b]);
-        
-        doc.fontSize(10)
-           .fillColor('white')
-           .text(genre, skillX + 10, skillY + 8);
-        
-        skillX += skillWidth + 10;
-      });
-    }
-
-    // Contact page
-    doc.addPage();
-    
-    doc.rect(50, 50, doc.page.width - 100, 40)
-       .fill([accentRgb.r, accentRgb.g, accentRgb.b]);
-    
-    doc.fontSize(18)
-       .fillColor('white')
-       .text('CONTACT INFORMATION', 60, 65);
-
-    let contactY = 120;
-
-    doc.fontSize(14)
-       .fillColor([primaryRgb.r, primaryRgb.g, primaryRgb.b])
-       .text('Email:', 50, contactY);
-    
-    doc.fontSize(12)
-       .fillColor('#333333')
-       .text(portfolio.artist.email, 50, contactY + 20);
-
-    contactY += 50;
-
-    // Location
-    if (portfolio.artist.location?.city || portfolio.artist.location?.country) {
-      doc.fontSize(14)
-         .fillColor([primaryRgb.r, primaryRgb.g, primaryRgb.b])
-         .text('Location:', 50, contactY);
-      
-      const location = [portfolio.artist.location.city, portfolio.artist.location.country]
-        .filter(Boolean).join(', ');
-      
-      doc.fontSize(12)
-         .fillColor('#333333')
-         .text(location, 50, contactY + 20);
-      
-      contactY += 50;
-    }
-
-    // Social Media
-    if (portfolio.artist.socialLinks) {
-      doc.fontSize(14)
-         .fillColor([primaryRgb.r, primaryRgb.g, primaryRgb.b])
-         .text('Connect Online:', 50, contactY);
-      
-      contactY += 25;
-      
-      Object.entries(portfolio.artist.socialLinks).forEach(([platform, url]) => {
-        if (url) {
-          doc.fontSize(12)
-             .fillColor('#0066cc')
-             .text(`${platform.charAt(0).toUpperCase() + platform.slice(1)}: ${url}`, 50, contactY);
-          contactY += 20;
-        }
-      });
-    }
-
-    // Footer
-    doc.fontSize(8)
-       .fillColor('#666666')
-       .text(
-         `Generated by KatikaNaMe Platform • ${new Date().toLocaleDateString()}`,
-         50,
-         doc.page.height - 30,
-         { align: 'center', width: doc.page.width - 100 }
-       );
-
-    doc.end();
-
-    // Wait for PDF to be written
-    doc.on('end', async () => {
-      try {
-        const url = `/uploads/portfolios/${filename}`;
-        
-        portfolio.generatedFiles.push({
-          format: 'pdf',
-          filename,
-          url,
-          generatedAt: new Date()
-        });
-        
-        await portfolio.save();
-
-        res.json({
-          message: 'Portfolio PDF generated successfully',
-          downloadUrl: url,
-          filename,
-          fileSize: fs.statSync(filepath).size
-        });
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to save portfolio file info' });
-      }
-    });
-
-  } catch (error) {
-    console.error('PDF Generation Error:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get public portfolios
-app.get('/api/portfolios/public', async (req, res) => {
-  try {
-    const { page = 1, limit = 12, category, search } = req.query;
-    
-    const pipeline = [
-      { $match: { isPublic: true } },
-      {
-        $lookup: {
-          from: 'artists',
-          localField: 'artist',
-          foreignField: '_id',
-          as: 'artist'
-        }
-      },
-      { $unwind: '$artist' },
-      { $match: { 'artist.isActive': true } }
-    ];
-    
-    if (category) {
-      pipeline.push({ $match: { 'artist.category': category } });
-    }
-    
-    if (search) {
-      pipeline.push({
-        $match: {
-          $or: [
-            { 'artist.name': { $regex: search, $options: 'i' } },
-            { 'title': { $regex: search, $options: 'i' } },
-            { 'description': { $regex: search, $options: 'i' } }
-          ]
-        }
-      });
-    }
-    
-    pipeline.push(
-      { $sort: { views: -1, createdAt: -1 } },
-      { $skip: (page - 1) * parseInt(limit) },
-      { $limit: parseInt(limit) },
-      {
-        $project: {
-          title: 1,
-          description: 1,
-          template: 1,
-          views: 1,
-          createdAt: 1,
-          'artist.name': 1,
-          'artist.category': 1,
-          'artist.genres': 1,
-          'artist.location': 1,
-          'artist.media': { $slice: ['$artist.media', 1] }
-        }
-      }
-    );
-    
-    const portfolios = await Portfolio.aggregate(pipeline);
-    
-    // Get total count
-    const countPipeline = pipeline.slice(0, -3);
-    countPipeline.push({ $count: "total" });
-    const totalResult = await Portfolio.aggregate(countPipeline);
-    const total = totalResult[0]?.total || 0;
+    portfolio.pdfUrl = `/pdfs/${portfolio.id}.pdf`;
 
     res.json({
-      portfolios,
-      pagination: {
-        current: parseInt(page),
-        pages: Math.ceil(total / limit),
-        total,
-        hasNext: page * limit < total,
-        hasPrev: page > 1
-      }
+      message: 'PDF generated successfully',
+      downloadUrl: portfolio.pdfUrl
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error generating PDF:', error);
+    res.status(500).json({ error: 'Failed to generate PDF' });
   }
 });
 
-// ===== STATIC FILE SERVING =====
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve generated files
+app.use('/portfolios', express.static('generated/portfolios'));
+app.use('/pdfs', express.static('generated/pdfs'));
+app.use('/uploads', express.static('uploads'));
 
-// ===== ERROR HANDLING =====
-app.use((err, req, res, next) => {
-  console.error('Error:', {
-    message: err.message,
-    stack: err.stack,
-    url: req.url,
-    method: req.method,
-    timestamp: new Date().toISOString()
+// Get all portfolios
+app.get('/api/portfolios', (req, res) => {
+  const portfoliosWithArtists = portfolios.map(portfolio => {
+    const artist = artists.find(a => a.id === portfolio.artistId);
+    return {
+      ...portfolio,
+      artist: artist ? { name: artist.name, email: artist.email } : null
+    };
   });
+  res.json(portfoliosWithArtists);
+});
 
-  if (err.name === 'ValidationError') {
-    const errors = Object.values(err.errors).map(e => e.message);
-    return res.status(400).json({ error: 'Validation failed', details: errors });
+// Get portfolio by ID
+app.get('/api/portfolios/:id', (req, res) => {
+  const portfolio = portfolios.find(p => p.id === req.params.id);
+  if (!portfolio) {
+    return res.status(404).json({ error: 'Portfolio not found' });
   }
 
-  if (err.code === 11000) {
-    const field = Object.keys(err.keyValue)[0];
-    return res.status(400).json({ error: `${field} already exists`, field });
-  }
-
-  if (err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ error: 'File too large', maxSize: '10MB' });
-  }
-
-  res.status(err.status || 500).json({
-    error: err.message || 'Internal Server Error'
+  const artist = artists.find(a => a.id === portfolio.artistId);
+  res.json({
+    ...portfolio,
+    artist: artist ? { name: artist.name, email: artist.email } : null
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+// Load initial data
+async function loadInitialData() {
+  try {
+    if (await fs.pathExists('data/artists.json')) {
+      artists = await fs.readJson('data/artists.json');
+    }
+    if (await fs.pathExists('data/portfolios.json')) {
+      portfolios = await fs.readJson('data/portfolios.json');
+    }
+  } catch (error) {
+    console.log('No existing data found, starting fresh...');
+  }
+}
 
-// ===== DATABASE CONNECTION AND SERVER START =====
-// ===== DATABASE CONNECTION AND SERVER START =====
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/katikaname';
-
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log('✅ MongoDB connected successfully');
-    
-    // Start the server only after DB connection is established
-    const server = app.listen(PORT, () => {
-      console.log('⏳ Attempting to connect to MongoDB...');  
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📊 Health check: http://localhost:${PORT}/health`);
-      console.log(`🎨 API Base URL: http://localhost:${PORT}/api`);
-      console.log(`📁 Uploads: http://localhost:${PORT}/uploads`);
-    });
-
-    // Handle server errors
-    server.on('error', (error) => {
-      console.error('Server error:', error);
-      process.exit(1);
-    });
-  })
-  .catch(err => {
-    console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
-  });
-
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  mongoose.connection.close(() => {
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
+// Start server
+app.listen(PORT, async () => {
+  await loadInitialData();
+  console.log(`Server running on http://localhost:${PORT}`);
+  console.log('API endpoints:');
+  console.log('  POST   /api/artists');
+  console.log('  GET    /api/artists');
+  console.log('  GET    /api/artists/:id');
+  console.log('  POST   /api/portfolios');
+  console.log('  POST   /api/portfolios/:id/generate-pdf');
+  console.log('  GET    /api/portfolios');
+  console.log('  GET    /api/portfolios/:id');
 });
