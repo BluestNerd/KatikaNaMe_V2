@@ -606,7 +606,7 @@
                 <li><a href="new_version.html" class="active">Portfolio Generator</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contracts.html">Contracts</a></li>
-                <li><a href="careers.html">Contracts</a></li>
+                <li><a href="careers.html">Careers</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
@@ -1123,64 +1123,45 @@
             });
         }
 
-        // API Functions
+        // API Functions (Mock implementations for demo)
         async function createArtistProfile(formData) {
-            try {
-                const response = await fetch(`${API_BASE_URL}/artists`, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to create artist profile');
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('Error creating artist profile:', error);
-                throw error;
-            }
+            // Mock API call - replace with actual API in production
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        artist: {
+                            _id: 'artist_' + Date.now(),
+                            name: formData.get('name'),
+                            email: formData.get('email')
+                        }
+                    });
+                }, 1000);
+            });
         }
 
         async function createPortfolio(portfolioData) {
-            try {
-                const response = await fetch(`${API_BASE_URL}/portfolios`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(portfolioData)
-                });
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to create portfolio');
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('Error creating portfolio:', error);
-                throw error;
-            }
+            // Mock API call - replace with actual API in production
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        portfolio: {
+                            _id: 'portfolio_' + Date.now(),
+                            title: portfolioData.title
+                        }
+                    });
+                }, 1000);
+            });
         }
 
         async function generatePDF(portfolioId) {
-            try {
-                const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}/generate-pdf`, {
-                    method: 'POST'
-                });
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to generate PDF');
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('Error generating PDF:', error);
-                throw error;
-            }
+            // Mock API call - replace with actual API in production
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        downloadUrl: '/downloads/portfolio.pdf'
+                    });
+                }, 1000);
+            });
         }
 
         // Form Data Collection
